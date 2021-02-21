@@ -29,3 +29,7 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
+
+bootRun {
+	systemProperties "jdk.tls.client.protocols":"TLSv1.2"
+}
