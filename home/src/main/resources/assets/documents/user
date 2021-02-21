@@ -1,0 +1,1 @@
+{"_id":{"password":"test1234","screenName":"hysk","email":"lojun@umich.edu","role":"admin","status":"activated","createdAt":{"$date":"2021-02-21T16:31:00.000Z"},"endDate":null}
