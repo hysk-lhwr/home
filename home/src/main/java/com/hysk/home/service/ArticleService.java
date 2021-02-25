@@ -16,7 +16,7 @@ public class ArticleService {
         this.articleRepository = articleRepository;
     }
 
-    public ShortenedArticle getAllArticles() {
+    public GetAllArticlesResponseDto getAllArticles() {
         var articles = this.articleRepository.findAll();
         var shortenedArticles = articles.stream().map(
                 entity -> ShortenedArticle.builder()

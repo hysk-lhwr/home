@@ -1,6 +1,6 @@
 package com.hysk.home.model;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
@@ -26,6 +26,7 @@ public class Article {
     public String status;
     public List<FeedBack> feedbacks;
 
+    @Data
     public class FeedBack {
         String ip;
         String id;
