@@ -30,6 +30,6 @@ public class Article {
     public class FeedBack {
         String ip;
         String id;
-        Integer score;
+        public Integer score;
     }
   }
