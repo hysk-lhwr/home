@@ -3,7 +3,9 @@ package com.hysk.home.service;
 import java.util.stream.Collectors;
 
 import com.hysk.home.dto.GetAllArticlesResponseDto;
+import com.hysk.home.dto.GetArticleResponseDto;
 import com.hysk.home.dto.ShortenedArticle;
+import com.hysk.home.model.Article;
 import com.hysk.home.repository.ArticleRepository;
 
 import org.springframework.stereotype.Service;
@@ -28,6 +30,20 @@ public class ArticleService {
             ).collect(Collectors.toList());
 
         return GetAllArticlesResponseDto.builder().articles(shortenedArticles).build();
+    }
+
+    public GetArticleResponseDto getArticleById(String articleId) throws Exception {
+        Article article = this.articleRepository.findById(articleId).orElseThrow(() -> new Exception());
+        var positiveFeedbacks = article.feedbacks.stream().filter(item -> item.score == 1).collect(Collectors.toList());
+        return GetArticleResponseDto.builder()
+            .createdDate(article.createdDate)
+            .editedDate(article.editedDate)
+            .contentRaw(article.contentRaw)
+            .contentMarkdown(article.contentMarkdown)
+            .contentHtml(article.contentHtml)
+            .views(article.views)
+            .likes(positiveFeedbacks.size())
+            .build();
     }
     
 }
