@@ -1,8 +1,10 @@
+@import "../../assets/_vars.scss";
+
 @media screen and (min-width: 801px) {
     div.content {
         display: grid;
-        grid-template-columns: auto max-content auto;
-        grid-gap: 1em;
+        grid-template-columns: auto minmax(80ch, auto) auto;
+        grid-gap: $spacing-cpt;
 
         .side-nav {
             grid-column: 1/2;
@@ -21,8 +23,8 @@
 @media screen and (max-width: 800px) {
     div.content {
         display: grid;
-        grid-template-columns: auto max-content;
-        grid-gap: 0em;
+        grid-template-columns: max-content auto;
+        grid-gap: 0;
 
         .side-nav {
             grid-column: 1/2;
@@ -34,30 +36,35 @@
 
         .side-bar {
             visibility: hidden;
+            width: 0;
+            height: 0;
         }
     }
 }
 
 div.content {
     .side-nav {
+        position: sticky;
+        top: 0;
+
         display: flex;
         justify-content: flex-end;
 
-        padding: 0.23em;
         height: max-content;
     }
 
     .center-display {
         padding: 0.23em;
-        width: 80ch;
+        max-width: 80ch;
         height: max-content;
+
+        overflow: auto;
     }
 
     .side-bar {
         display: flex;
         justify-content: flex-start;
 
-        padding: 0.23em;
         height: max-content;
     }
 }
