@@ -12,7 +12,7 @@ export class EnvironmentService implements Environment {
         return environment.production;
     }
 
-    get apiUrl() {
-        return environment.apiUrl;
+    get backendUrl() {
+        return environment.backendUrl;
     }
 }
