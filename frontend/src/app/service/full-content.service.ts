@@ -15,7 +15,7 @@ export class FullContentService {
     ) {}
 
     getFullContent(articleId: string):Observable<FullContent> {
-        const fullUrl = this.environmentService.backendUrl + '/articles/' + encodeURI(articleId)
+        const fullUrl = this.environmentService.backendUrl + '/articles/' + encodeURI(articleId);
         return this.http.get<FullContent>(fullUrl);
     }
 }
