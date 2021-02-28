@@ -1,0 +1,9 @@
+@import '../../assets/_vars.scss';
+
+.preview-card {
+    cursor: pointer;
+
+    &:hover {
+        background-color: $color-background-hover;
+    }
+}

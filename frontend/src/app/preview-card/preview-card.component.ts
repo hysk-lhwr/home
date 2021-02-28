@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ShortenedArticle } from '../models/shortened-article';
 
 @Component({
@@ -9,9 +10,15 @@ import { ShortenedArticle } from '../models/shortened-article';
 export class PreviewCardComponent implements OnInit {
   @Input('article') article: ShortenedArticle;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  showFullArticle() {
+    this.router.navigateByUrl(
+      '/article/' + encodeURI(this.article.articleTitle),
+      {state: {articleId: this.article.articleId}}
+    )
+  }
 }
