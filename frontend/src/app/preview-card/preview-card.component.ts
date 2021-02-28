@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { ShortenedArticle } from '../models/shortened-article';
 
 @Component({
   selector: 'app-preview-card',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./preview-card.component.scss']
 })
 export class PreviewCardComponent implements OnInit {
+  @Input('article') article: ShortenedArticle;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
+  showFullArticle() {
+    this.router.navigateByUrl(
+      '/article/' + encodeURI(this.article.articleTitle),
+      {state: {articleId: this.article.articleId}}
+    )
+  }
 }

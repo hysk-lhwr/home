@@ -1,0 +1,70 @@
+@import "../../assets/_vars.scss";
+
+@media screen and (min-width: 813px) {
+    div.content {
+        display: grid;
+        grid-template-columns: auto minmax(80ch, auto) auto;
+        grid-gap: $spacing-cpt;
+
+        .side-nav {
+            grid-column: 1/2;
+        }
+    
+        .center-display {
+            grid-column: 2/3;
+        }
+    
+        .side-bar {
+            grid-column: 3/4;
+        }
+    }
+}
+
+@media screen and (max-width: 812px) {
+    div.content {
+        display: grid;
+        grid-template-columns: max-content auto;
+        grid-gap: 0;
+
+        .side-nav {
+            grid-column: 1/2;
+        }
+    
+        .center-display {
+            grid-column: 2/3;
+        }
+
+        .side-bar {
+            visibility: hidden;
+            width: 0;
+            height: 0;
+        }
+    }
+}
+
+div.content {
+    .side-nav {
+        position: sticky;
+        top: 0;
+
+        display: flex;
+        justify-content: flex-end;
+
+        height: max-content;
+    }
+
+    .center-display {
+        padding: 0.23em;
+        max-width: 80ch;
+        height: max-content;
+
+        overflow: auto;
+    }
+
+    .side-bar {
+        display: flex;
+        justify-content: flex-start;
+
+        height: max-content;
+    }
+}

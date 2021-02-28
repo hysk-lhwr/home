@@ -1,0 +1,40 @@
+// palette
+
+
+// color
+$color-background-unset: rgba(#fff, 1);
+$color-background-hover: rgba($color: rgb(192, 191, 191), $alpha: 0.2);
+$color-background-highlight: rgba($color: rgb(192, 191, 191), $alpha: 0.2);
+$color-background-selected: rgba($color: rgb(192, 191, 191), $alpha: 0.2);
+$color-text-regular: rgba(#012, 1);
+$color-text-subtle: rgba(#8b8888, 0.9);
+$color-text-strong: rgba(#000, 1);
+$color-text-highlight: rgba(#000, 1);
+$color-text-selected: rgba(#000, 1);
+
+// spacing
+// cpt: contains component
+// cnt: direct single child of component
+// cnt-sub: direct sibling of compoen
+$spacing-cpt: 2rem; // module level
+$spacing-cnt: 1rem; // container level
+$spacing-cnt--sub: 0.68rem; // sub container level
+$spacing-itm: 0.23rem; // item level
+$spacing-itm--sub: 0.1rem; // sub item level
+$spacing-letter: 0.068rem; // letter spacing
+
+// shadow
+$box-showdow-hover: 0px 12px 12px rgba(0, 0, 0, 0.2);
+$box-showdow-regular: 0px 6px 6px rgba(0, 0, 0, 0.2);
+
+// border
+$border-color: rgba(#000, 1);
+$border-color-light: rgba(rgb(202, 198, 198), 1);
+
+// font size and weight
+$font-size-regular: 18px;
+$font-size-sm: 13px;
+$font-size-lg: 30px;
+$font-weight-regular: 400;
+$font-weight-heavy: 700;
+$font-weight-light: 100; 

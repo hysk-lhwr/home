@@ -1,1 +1,118 @@
 /* You can add global styles to this file, and also import other style files */
+@import "./assets/_vars.scss";
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
+
+body {
+    margin: 0;
+
+    div, p, a, img {
+        &:focus {
+            border: none;
+            outline: none;
+        }
+    }
+
+    p {
+        margin: 0;
+        padding: 0;
+    
+        font-family: 'Roboto', sans-serif;
+        font-size: $font-size-regular;
+        font-weight: $font-weight-light;
+        letter-spacing: $spacing-letter;
+        color: $color-text-regular;
+    
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        flex-wrap: wrap;
+        max-width: 80ch;
+    }
+
+    p.title {
+        font-size: $font-size-lg;
+        line-height: $font-size-lg;
+        font-weight: $font-weight-heavy;
+    }
+    
+    p.label, p.date {
+        font-size: $font-size-sm;
+        font-weight: $font-weight-heavy;
+        line-height: $font-size-sm;
+        color: $color-text-subtle;
+    }
+    
+    p.date {
+        font-weight: $font-weight-regular;
+        font-style: italic;
+    }
+
+    p.content {
+        flex-wrap: wrap;
+    }
+
+    .top-liner {
+        padding-top: $spacing-cnt;
+        
+        border-top: 1px;
+        border-top-style: solid;
+        border-top-color: $border-color;
+    }
+    
+    .btm-liner {
+        padding-bottom: $spacing-cnt;
+
+        border-bottom: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: $border-color;
+    }
+
+    .btm-liner-light {
+        padding-bottom: $spacing-cnt;
+        
+        border-bottom: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: $border-color-light;
+    }
+
+    .link {
+        cursor: pointer;
+    }
+
+    .flex-row {
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+    }
+
+    .flex-column {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sp-cpt {
+        margin: $spacing-cpt 0;
+        padding: $spacing-cpt 0;
+    }
+
+    .sp-cnt {
+        margin: $spacing-cnt 0;
+        padding: $spacing-cnt;
+    }
+
+    .sp-itm {
+        margin: $spacing-itm 0;
+        padding: $spacing-itm;
+    }
+
+    .sp-cnt-sub {
+        margin: $spacing-cnt--sub 0;
+        padding: $spacing-cnt--sub;
+    }
+
+    .sp-itm-sub {
+        margin-right: $spacing-itm--sub;
+        padding-right: $spacing-itm--sub;
+        margin-bottom: $spacing-itm--sub;
+        padding-bottom: $spacing-itm--sub;
+    }
+}

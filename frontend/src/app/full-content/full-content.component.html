@@ -1,1 +1,8 @@
-<p>full-content works!</p>
+<div *ngIf="!!fullContent" class="sp-cnt">
+    <p class="title sp-itm">How the fuck did I not put title in this reponse?!!!</p>
+    <div class="sp-itm flex-row">
+        <p class="date sp-itm-sub">Created At: </p>
+        <p class="date sp-itm-sub">{{fullContent?.createdDate}}</p>
+    </div>
+    <p class="content sp-itm">{{fullContent?.contentMarkdown}}</p>
+</div>

@@ -1,1 +1,8 @@
-<p>preview-card works!</p>
+<div class="preview-card btm-liner-light sp-cnt" (click)="showFullArticle()">
+    <p class="title sp-itm">{{article?.articleTitle}}</p>
+    <div class="flex-row sp-itm">
+        <p class="label sp-itm-sub">keywords: </p>
+        <p *ngFor='let keyword of article.keywords' class="label sp-itm-sub">{{keyword + '; '}}</p>
+    </div>
+    <p class="content sp-itm">{{article?.preview}}</p>
+</div>
