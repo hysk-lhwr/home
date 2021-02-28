@@ -1,6 +1,6 @@
 @import "../../assets/_vars.scss";
 
-@media screen and (min-width: 801px) {
+@media screen and (min-width: 813px) {
     div.content {
         display: grid;
         grid-template-columns: auto minmax(80ch, auto) auto;
@@ -20,7 +20,7 @@
     }
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 812px) {
     div.content {
         display: grid;
         grid-template-columns: max-content auto;

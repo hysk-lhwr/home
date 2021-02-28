@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { ShortenedArticle } from '../models/shortened-article';
 
 @Component({
   selector: 'app-preview-card',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./preview-card.component.scss']
 })
 export class PreviewCardComponent implements OnInit {
+  @Input('article') article: ShortenedArticle;
 
   constructor() { }
 
