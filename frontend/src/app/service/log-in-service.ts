@@ -16,6 +16,6 @@ export class LogInService {
 
     login(request: LoginRequest): Observable<LogInResponse> {
         const fullUrl = this.environmentService.backendUrl + this.url;
-        return this.http.get<LogInResponse>(fullUrl);
+        return this.http.post<LogInResponse>(fullUrl, request);
     }
 }

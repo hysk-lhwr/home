@@ -3,6 +3,7 @@ import { Router } from "@angular/router";
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { LoginRequest } from "../models/log-in-request";
+import { LogInResponse } from "../models/log-in-response";
 import { Role } from "../models/role";
 import { User } from "../models/user";
 import { LogInService } from "./log-in-service";
@@ -28,21 +29,15 @@ export class UserService {
         this.service.login(request).pipe(
             switchMap(response => {
                 if(!!response.valid) {
-                    var user: User;
-                    user.email = response.email;
-                    user.role = response.role;
-                    user.username = response.username;
-                    user.timeLoggedin = new Date();
-                    return of(user);
+                    this.updateUser(response)
+                    return of(true);
                 } else {
-                    return of(null);
+                    return of(false);
                 }
             })
         ).subscribe(
             result => {
-                if(result) {
-                    this.updateUser(result);
-                } else {
+                if(!result) {
                     // notifies failure
                 }
                 this.router.navigateByUrl('/');
@@ -54,8 +49,11 @@ export class UserService {
         return this.user;
     }
 
-    private updateUser(user: User): void {
-        this.user = user;
+    private updateUser(response: LogInResponse): void {
+        this.user.email = response.email;
+        this.user.role = response.role;
+        this.user.username = response.username;
+        this.user.timeLoggedin = new Date();
         this.userSubject.next(this.user);
     }
 }
