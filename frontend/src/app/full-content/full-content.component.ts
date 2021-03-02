@@ -1,14 +1,16 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { FullContent } from '../models/full-content';
 import { FullContentService } from '../service/full-content.service';
+import { MarkdownRendererService } from '../service/markdown-renderer.service';
 
 @Component({
   selector: 'app-full-content',
   templateUrl: './full-content.component.html',
-  styleUrls: ['./full-content.component.scss']
+  styleUrls: ['./full-content.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class FullContentComponent implements OnInit, OnDestroy {
 
@@ -17,8 +19,12 @@ export class FullContentComponent implements OnInit, OnDestroy {
 
   articleId: string;
   fullContent: FullContent = null;
+  renderedString: string = null;
 
-  constructor(private router: Router, private fullContentService: FullContentService) {
+  constructor(
+    private router: Router, 
+    private fullContentService: FullContentService,
+    private markdownRendererService: MarkdownRendererService) {
 
     this.newArticleIdSubject.pipe(
       takeUntil(this.destroy$),
@@ -45,6 +51,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
     ).subscribe(
       response => {
         this.fullContent = response;
+        this.renderedString = this.markdownRendererService.renderString(this.fullContent.contentMarkdown);
       }
     );
 
