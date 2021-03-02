@@ -30,6 +30,7 @@ body {
 
     p.title {
         font-size: $font-size-lg;
+        text-transform: capitalize;
         line-height: $font-size-lg;
         font-weight: $font-weight-heavy;
     }
@@ -72,6 +73,22 @@ body {
         border-bottom: 1px;
         border-bottom-style: solid;
         border-bottom-color: $border-color-light;
+    }
+    
+    .right-liner {
+        padding-right: $spacing-cnt;
+
+        border-right: 1px;
+        border-right-style: solid;
+        border-right-color: $border-color;
+    }
+
+    .right-liner-light {
+        padding-right: $spacing-cnt;
+        
+        border-right: 1px;
+        border-right-style: solid;
+        border-right-color: $border-color-light;
     }
 
     .link {

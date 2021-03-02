@@ -1,0 +1,76 @@
+@import "../_vars.scss";
+
+div.article-viewer {
+
+    font-family: 'Roboto', sans-serif;
+    font-size: $font-size-regular;
+    font-weight: $font-weight-light;
+    letter-spacing: $spacing-letter;
+    line-height: $line-height-regular;
+    color: $color-text-regular;
+
+    white-space: pre-wrap;
+    max-width: 80ch;
+
+    margin: $spacing-itm--sub;
+
+    p.h-lv1 {
+        margin: $spacing-itm 0;
+
+        color: $color-text-strong;
+        font-size: $font-size-lg;
+        line-height: $font-size-lg;
+        font-weight: $font-weight-heavy;
+        text-transform: capitalize;
+    }
+
+    p.h-lv2 {
+        margin: $spacing-itm 0;
+
+        color: $color-text-strong;
+        font-size: $font-size-regular;
+        line-height: $font-size-lg;
+        font-weight: $font-weight-heavy;
+        text-transform: capitalize;
+    }
+
+    p.h-lv3 {
+        margin: $spacing-itm 0;
+
+        color: $color-text-strong;
+        font-size: $font-size-regular;
+        line-height: $font-size-lg;
+        font-weight: $font-weight-light;
+        text-transform: capitalize;
+    }
+
+    p.code-block {
+        margin: $spacing-itm 0;
+        padding: $spacing-cnt;
+        
+        white-space: pre;
+        overflow-x: auto;
+        letter-spacing: 0;
+        
+        background-color: $color-background-highlight;
+    }
+
+    span {
+        margin: 0;
+        padding: 0 $spacing-itm--sub;
+    }
+
+    span.code-snipet {
+        letter-spacing: 0;
+        background-color: $color-background-highlight;
+    }
+
+    span.bold {
+        color: $color-text-subtle;
+        font-weight: $font-weight-regular;
+    }
+
+    span.italic {
+        font-style: italic;
+    }
+}

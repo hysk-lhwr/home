@@ -4,5 +4,5 @@
         <p class="date sp-itm-sub">Created At: </p>
         <p class="date sp-itm-sub">{{fullContent?.createdDate}}</p>
     </div>
-    <p class="content sp-itm">{{fullContent?.contentMarkdown}}</p>
+    <div #mkdField class="article-viewer sp-itm" [innerHtml]="renderedString"></div>
 </div>
