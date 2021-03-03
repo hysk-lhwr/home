@@ -1,5 +1,8 @@
 <div id="app-container">
   <header id="app-header" class="flex-row btm-liner">
+    <div class="user-container link sp-cnt" routerLink="">
+      <p *ngIf="user?.timeLoggedin" class="title sp-itm">{{user?.username}}</p>
+    </div>
     <div class="logo-container sp-cnt">
       <img src="../assets/images/logo.png" alt="logo"/>
     </div>

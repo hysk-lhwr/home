@@ -1,3 +1,16 @@
-<div class="login-form">
-    
+<div class="login-container flex-column sp-cnt">
+    <form [formGroup]="logInForm" class="login-form sp-cnt-sub">
+        <div class="form-field sp-itm">
+            <label for="username"></label>
+            <input type="text" id="username" formControlName="username" placeholder="username">
+        </div>
+        <div class="form-field sp-itm">
+            <label for="password" placeholder="password"></label>
+            <input type="text" id="password" formControlName="password" placeholder="password">
+        </div>
+        <div class="login-footer sp-itm flex-row">
+            <div class="button link sp-itm" routerLink="">Cancel</div>
+            <div class="button link sp-itm" (click)="onSubmit()" routerLink="">Submit</div>
+        </div>
+    </form>
 </div>

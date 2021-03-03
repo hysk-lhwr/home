@@ -12,6 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -23,12 +24,13 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
     HomeComponent,
     LoginComponent,
     SideNavComponent,
-    SideBarComponent
+    SideBarComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
