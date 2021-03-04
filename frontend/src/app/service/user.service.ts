@@ -18,7 +18,6 @@ export class UserService {
         role: Role.VISITOR,
         timeLoggedin: null
     };
-
     private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(this.user);
     public user$: Observable<User> = this.userSubject.asObservable();
 
@@ -45,6 +44,17 @@ export class UserService {
         );
     }
 
+    logout() {
+        const defaultUser: User = {
+            username: 'visitor',
+            email: '',
+            role: Role.VISITOR,
+            timeLoggedin: null
+        };
+        this.user = defaultUser;
+        this.publishUser();
+    }
+
     getUser(): User {
         return this.user;
     }
@@ -54,6 +64,10 @@ export class UserService {
         this.user.role = response.role;
         this.user.username = response.username;
         this.user.timeLoggedin = new Date();
+        this.publishUser();
+    }
+
+    private publishUser(): void {
         this.userSubject.next(this.user);
     }
 }

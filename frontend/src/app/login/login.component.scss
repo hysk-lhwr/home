@@ -6,6 +6,16 @@
     align-items: center;
     height: 40vh;
 
+    .login-form {
+        width: max-content;
+        border: 1px, solid, $border-color-light;
+        box-shadow: $box-showdow-regular;
+
+        &:hover {
+            box-shadow: $box-showdow-hover;
+        }
+}
+
     input {
 
         color: $color-text-regular;
@@ -14,7 +24,7 @@
         font-weight: $font-weight-light;
         line-height: $line-height-regular;
     
-        border: 1px, solid, $border-color;
+        border: 1px, solid, $border-color-light;
         border-radius: 2px;
 
         padding: $spacing-itm--sub $spacing-itm;
@@ -33,16 +43,18 @@
 
         .button {
 
-            color: $color-text-regular;
+            color: $color-text-light;
             font-family: 'Roboto', sans-serif;
-            font-size: $font-size-regular;
-            font-weight: $font-weight-light;
+            font-size: $font-size-sm;
+            font-weight: $font-weight-heavy;
             line-height: $line-height-regular;
 
-            border: 1px, solid, $border-color;
+            border-bottom: 2px;
+            border-bottom-style: solid;
+            border-bottom-color: $solid-white;
 
             &:hover {
-                box-shadow: $box-showdow-regular;
+                border-bottom-color: $border-color-light;
             }
         }    
     }

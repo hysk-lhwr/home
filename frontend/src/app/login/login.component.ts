@@ -33,20 +33,9 @@ export class LoginComponent implements OnInit {
     return this.user.role == Role.ADMIN;
   }
 
-  // logout() {
-  //   const mockUser: User = {
-  //     username: '',
-  //     email: '',
-  //     role: Role.VISITOR,
-  //     timeLoggedin: null
-  //   }
-  //   this.user = mockUser;
-  // }
-
   onSubmit() {
     this.logInRequest.username = this.logInForm.value.username;
     this.logInRequest.password = this.logInForm.value.password;
-    console.log(this.logInRequest);
     this.login();
   }
 

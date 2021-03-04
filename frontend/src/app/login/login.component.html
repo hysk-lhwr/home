@@ -1,5 +1,5 @@
 <div class="login-container flex-column sp-cnt">
-    <form [formGroup]="logInForm" class="login-form sp-cnt-sub">
+    <form [formGroup]="logInForm" class="login-form sp-cnt">
         <div class="form-field sp-itm">
             <label for="username"></label>
             <input type="text" id="username" formControlName="username" placeholder="username">
@@ -9,8 +9,8 @@
             <input type="text" id="password" formControlName="password" placeholder="password">
         </div>
         <div class="login-footer sp-itm flex-row">
-            <div class="button link sp-itm" routerLink="">Cancel</div>
-            <div class="button link sp-itm" (click)="onSubmit()" routerLink="">Submit</div>
+            <div class="button link" routerLink="">Cancel</div>
+            <div class="button link" (click)="onSubmit()" routerLink="">Submit</div>
         </div>
     </form>
 </div>
