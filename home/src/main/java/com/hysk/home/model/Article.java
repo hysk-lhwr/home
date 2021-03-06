@@ -23,7 +23,7 @@ public class Article {
     public String contentHtml;
     public String contentMarkdown;
     public Integer views;
-    public String status;
+    public Status status;
     public List<FeedBack> feedbacks;
 
     @Data
