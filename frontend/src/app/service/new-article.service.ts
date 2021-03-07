@@ -16,7 +16,7 @@ export class NewArticleService {
     ) {}
 
     createArticle(request: NewArticleRequest):Observable<NewArticleResponse> {
-        const fullUrl = this.environmentService.backendUrl + '/articles/new';
+        const fullUrl = this.environmentService.backendUrl + 'articles/new';
         return this.http.post<NewArticleResponse>(fullUrl, request);
     }
 }
