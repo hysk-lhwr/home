@@ -1,5 +1,10 @@
 // palette
-
+$light-blue: #719ece;
+$light-grey: rgb(190, 190, 190);
+$foggy-grey: rgb(168, 168, 168);
+$rainy-grey: #808080;
+$solid-white: #fff;
+$solid-dark: #000;
 
 // color
 $color-background-unset: rgba(#fff, 1);
@@ -29,8 +34,9 @@ $box-showdow-hover: 0px 12px 12px rgba(0, 0, 0, 0.2);
 $box-showdow-regular: 0px 6px 6px rgba(0, 0, 0, 0.2);
 
 // border
-$border-color: rgba(#000, 1);
+$border-color: rgba($solid-dark, 1);
 $border-color-light: rgba(rgb(202, 198, 198), 1);
+$border-color-selected: rgba($light-blue, 0.8);
 
 // font size and weight
 $font-size-regular: 18px;

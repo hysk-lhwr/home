@@ -5,9 +5,15 @@
         </div>
         <div class="nav-icon"></div>
     </div>
-    <div class="nav-item link sp-itm" routerLink="/login" routerLinkActive="active">
+    <div *ngIf="!user?.timeLoggedin" class="nav-item link sp-itm" routerLink="/login" routerLinkActive="active">
         <div class="nav-text">
             <p class="label">login</p>
+        </div>
+        <div class="nav-icon"></div>
+    </div>
+    <div *ngIf="user?.timeLoggedin" class="nav-item link sp-itm" routerLink="/" routerLinkActive="active" (click)="logout()">
+        <div class="nav-text">
+            <p class="label">logout</p>
         </div>
         <div class="nav-icon"></div>
     </div>

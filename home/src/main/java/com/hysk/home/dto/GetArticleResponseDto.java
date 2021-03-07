@@ -8,6 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 public class GetArticleResponseDto {
+    String title;
     Date createdDate;
     Date editedDate;
     String contentRaw;
