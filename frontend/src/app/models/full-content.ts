@@ -1,4 +1,5 @@
 export interface FullContent {
+    title: string;
     createdDate: Date;
     editedDate: Date;
     contentRaw: string;

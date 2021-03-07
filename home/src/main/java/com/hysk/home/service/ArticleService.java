@@ -44,6 +44,7 @@ public class ArticleService {
         return GetArticleResponseDto.builder()
             .createdDate(article.createdDate)
             .editedDate(article.editedDate)
+            .title(article.title)
             .contentRaw(article.contentRaw)
             .contentMarkdown(article.contentMarkdown)
             .contentHtml(article.contentHtml)
@@ -53,11 +54,10 @@ public class ArticleService {
     }
 
     public NewArticleResponseDto newArticle(NewArticleRequestDto requestDto) {
-        var article = new Article();
-        article.setCreatedDate(new Date());
-        article.setStatus(Status.DRAFT);
-        article.setCreatedBy(requestDto.getCreatedBy());
-
+        var article = Article.builder()
+            .createdBy(requestDto.getCreatedBy())
+            .createdDate(new Date())
+            .build();
         article = this.articleRepository.save(article);
         return NewArticleResponseDto.builder().articleId(article.articleId).build();
     }
