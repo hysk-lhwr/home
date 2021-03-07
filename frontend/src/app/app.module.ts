@@ -13,6 +13,8 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NewArticleComponent } from './new-article/new-article.component';
+import { ArticleEditorComponent } from './article-editor/article-editor.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     LoginComponent,
     SideNavComponent,
     SideBarComponent,
+    NewArticleComponent,
+    ArticleEditorComponent,
   ],
   imports: [
     BrowserModule,

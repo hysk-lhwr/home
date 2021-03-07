@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 @Builder
-public class NewArticleRequestDto {
-    String createdBy;
+public class NewArticleResponseDto {
+    String articleId;
 }

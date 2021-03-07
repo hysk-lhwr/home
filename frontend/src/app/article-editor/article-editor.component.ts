@@ -7,12 +7,12 @@ import { FullContentService } from '../service/full-content.service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
 
 @Component({
-  selector: 'app-full-content',
-  templateUrl: './full-content.component.html',
-  styleUrls: ['./full-content.component.scss'],
+  selector: 'app-article-editor',
+  templateUrl: './article-editor.component.html',
+  styleUrls: ['./article-editor.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FullContentComponent implements OnInit, OnDestroy {
+export class ArticleEditorComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private newArticleIdSubject: Subject<string> = new Subject<string>();
