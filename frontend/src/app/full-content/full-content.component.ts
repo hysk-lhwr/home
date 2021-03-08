@@ -3,8 +3,12 @@ import { ActivationEnd, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { FullContent } from '../models/full-content';
+import { Role } from '../models/role';
+import { User } from '../models/user';
+import { ConstantsService } from '../service/constants.service';
 import { FullContentService } from '../service/full-content.service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-full-content',
@@ -16,16 +20,26 @@ export class FullContentComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
   private newArticleIdSubject: Subject<string> = new Subject<string>();
-
+  
+  user: User;
   articleId: string;
   fullContent: FullContent = null;
   renderedString: string = null;
+  admin: Role = Role.ADMIN;
+  iconColor: string = this.constants.iconColor.regular;
+  iconPath: object = this.constants.iconPath;
 
   constructor(
     private router: Router, 
     private fullContentService: FullContentService,
-    private markdownRendererService: MarkdownRendererService) {
+    private markdownRendererService: MarkdownRendererService,
+    private userService: UserService, 
+    private constants: ConstantsService) {
 
+    this.userService.user$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe(u => this.user=u);
+  
     this.newArticleIdSubject.pipe(
       takeUntil(this.destroy$),
       switchMap(
@@ -41,7 +55,9 @@ export class FullContentComponent implements OnInit, OnDestroy {
                   contentMarkdown: '',
                   contentHtml: '',
                   views: null,
-                  likes: null
+                  likes: null,
+                  categories: null,
+                  keywords: null,
                 }
               )
             })
@@ -77,5 +93,17 @@ export class FullContentComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  editArticle() {
+    this.router.navigateByUrl('/editor', {state: {articleId: this.articleId}});
+  }
+
+  hoverIcon() {
+    this.iconColor = this.constants.iconColor.highlight;
+  }
+
+  hoverEnds() {
+    this.iconColor = this.constants.iconColor.regular;
   }
 }

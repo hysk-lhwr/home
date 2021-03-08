@@ -1,6 +1,7 @@
 package com.hysk.home.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import lombok.Builder;
 import lombok.Data;
@@ -16,4 +17,7 @@ public class GetArticleResponseDto {
     String contentHtml;
     Integer views;
     Integer likes;
+    List<String> categories;
+    List<String> keywords;
+    String preview;
 }

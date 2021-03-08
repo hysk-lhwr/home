@@ -4,5 +4,5 @@
         <p class="label sp-itm-sub">keywords: </p>
         <p *ngFor='let keyword of article.keywords' class="label sp-itm-sub">{{keyword + '; '}}</p>
     </div>
-    <p class="content sp-itm">{{article?.preview}}</p>
+    <p class="content sp-itm">{{article?.preview + "\n"}}. . . </p>
 </div>

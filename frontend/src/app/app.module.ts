@@ -12,7 +12,7 @@ import { LoginComponent } from './login/login.component';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { SideBarComponent } from './side-bar/side-bar.component';
 import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewArticleComponent } from './new-article/new-article.component';
 import { ArticleEditorComponent } from './article-editor/article-editor.component';
 
@@ -35,6 +35,7 @@ import { ArticleEditorComponent } from './article-editor/article-editor.componen
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

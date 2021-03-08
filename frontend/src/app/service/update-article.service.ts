@@ -1,21 +1,21 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
-import { FullContent } from "../models/full-content";
+import { UpdateArticleRequest } from "../models/update-article-request";
 import { EnvironmentService } from "./environment.service";
 
 @Injectable({
     providedIn: 'root'
 })
-export class FullContentService {
+export class UpdateArticleService {
 
     constructor(
         private http: HttpClient, 
         private environmentService: EnvironmentService
     ) {}
 
-    getFullContent(articleId: string):Observable<FullContent> {
-        const fullUrl = this.environmentService.backendUrl + 'articles/' + encodeURI(articleId);
-        return this.http.get<FullContent>(fullUrl);
+    updateArticle(request: UpdateArticleRequest):Observable<string> {
+        const fullUrl = this.environmentService.backendUrl + 'articles/edit';
+        return this.http.post<string>(fullUrl, request);
     }
 }
