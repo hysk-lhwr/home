@@ -16,11 +16,19 @@
             <textarea type="text" id="preview" [(ngModel)]="preview" value="preview" placeholder="Add custom preview. If empty, the default will be the first 300 characters."></textarea>
             <label for="preview">Preview: </label>
         </div>
-        <div *ngIf="!previewMode" class="tool-bar sp-cnt-sub btm-liner-light link flex-row flex-center">
-            <p class="label" (click)="togglePreview()">Preivew Content</p>
-        </div>
-        <div *ngIf="!!previewMode" class="tool-bar sp-cnt-sub btm-liner-light link flex-row flex-center">
-            <p class="label" (click)="togglePreview()">Back To Edit</p>
+        <div class="tool-bar sp-cnt-sub btm-liner-light flex-row flex-center">
+            <div *ngIf="!previewMode" class="link flex-row flex-center" (click)="togglePreview()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" [attr.fill]="iconColor?.disabled">
+                    <path [attr.d]="iconPath?.toggleOff"></path>
+                </svg>    
+                <p class="label"> See Preivew</p>
+            </div>
+            <div *ngIf="!!previewMode" class="link flex-row flex-center" (click)="togglePreview()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" [attr.fill]="iconColor?.enabled">
+                    <path [attr.d]="iconPath?.toggleOn"></path>
+                </svg>    
+                <p class="label"> Back To Edit</p>
+            </div>    
         </div>
         <div *ngIf="!previewMode" class="editable -markdown-editor sp-itm btm-liner-light">
             <textarea #contentRef type="text" id="contentMarkdown" [(ngModel)]="contentMarkdown" value="contentMarkdown" placeholder="Edit content."></textarea>

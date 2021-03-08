@@ -15,31 +15,28 @@ div.article-viewer {
     margin: $spacing-itm--sub;
 
     p.h-lv1 {
-        margin: $spacing-itm 0;
-
+        margin: $spacing-cnt--sub 0;
         color: $color-text-strong;
-        font-size: $font-size-lg;
-        line-height: $font-size-lg;
+        font-size: $font-size-md;
+        line-height: $font-size-md;
         font-weight: $font-weight-heavy;
         text-transform: capitalize;
     }
 
     p.h-lv2 {
-        margin: $spacing-itm 0;
-
+        margin: $spacing-cnt--sub 0;
         color: $color-text-strong;
         font-size: $font-size-regular;
-        line-height: $font-size-lg;
-        font-weight: $font-weight-heavy;
+        line-height: $font-size-regular;
+        font-weight: $font-weight-regular;
         text-transform: capitalize;
     }
 
     p.h-lv3 {
-        margin: $spacing-itm 0;
-
+        margin: $spacing-cnt--sub 0;
         color: $color-text-strong;
         font-size: $font-size-regular;
-        line-height: $font-size-lg;
+        line-height: $font-size-regular;
         font-weight: $font-weight-light;
         text-transform: capitalize;
     }

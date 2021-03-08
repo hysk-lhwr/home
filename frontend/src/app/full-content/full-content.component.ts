@@ -27,7 +27,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
   renderedString: string = null;
   admin: Role = Role.ADMIN;
   iconColor: string = this.constants.iconColor.regular;
-  iconPath: object = this.constants.iconPath;
+  iconPath = this.constants.iconPath;
 
   constructor(
     private router: Router, 

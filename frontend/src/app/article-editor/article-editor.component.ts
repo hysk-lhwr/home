@@ -5,6 +5,7 @@ import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap,
 import { FullContent } from '../models/full-content';
 import { UpdateArticleRequest, updateArticleRequestDefault } from '../models/update-article-request';
 import { User } from '../models/user';
+import { ConstantsService } from '../service/constants.service';
 import { FullContentService } from '../service/full-content.service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
 import { UpdateArticleService } from '../service/update-article.service';
@@ -36,6 +37,8 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
   updateArticleRequest: UpdateArticleRequest = updateArticleRequestDefault;
   user: User;
   previewMode: boolean = false;
+  iconColor = this.constants.iconColor;
+  iconPath = this.constants.iconPath;
   emptyContent: FullContent = {
     createdDate: null,
     editedDate: null,
@@ -55,7 +58,8 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     private fullContentService: FullContentService,
     private markdownRendererService: MarkdownRendererService, 
     private userService: UserService, 
-    private updateArticleService: UpdateArticleService) {
+    private updateArticleService: UpdateArticleService, 
+    private constants: ConstantsService) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$)
