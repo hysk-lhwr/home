@@ -30,6 +30,18 @@
                 <p class="label"> Back To Edit</p>
             </div>    
         </div>
+
+        <!-- 
+            ngClass is used here instead of *ngIf due to the fact we are subscribing to #contenRef, {{ textInput }}, inside ngAfterViewInit.
+            *ngIf being false will cause this ElementRef to be destroyed and the subscription will be lost. 
+            Restoring contentRef and textInput won't automatically resume the subscription since it's created in ngAfterViewInit.
+
+            Another way to resolve this is to use ngAfterViewChecked instead of ngAfterViewInit, which will automatically resume the subscription when contentRef is created again. 
+            However, ngAfterViewChecked will re-create the subscription multiple times, causing too much traffic loads on each input event. 
+            There should ways to fix that, but I didn't check into it. 
+
+            Instead, I used ngClass to manipulate the visbility and height of markdown-editor and article-viewer to avoid it.
+         -->
         <div [ngClass]="{'show-preview': !!previewMode, 'show-editor': !previewMode}">
             <div class="editable -markdown-editor sp-itm btm-liner-light">
                 <textarea #contentRef type="text" id="contentMarkdown" [(ngModel)]="contentMarkdown" value="contentMarkdown" placeholder="Edit content."></textarea>
