@@ -28,13 +28,13 @@ public class Article {
     @Builder.Default
     public List<String> categories = Collections.emptyList();
     @Builder.Default
-    public String preview = "";
+    public String preview = "tbd";
     @Builder.Default
     public String contentRaw = "";
     @Builder.Default
     public String contentHtml = "";
     @Builder.Default
-    public String contentMarkdown = "tbd";
+    public String contentMarkdown = "Start here!";
     @Builder.Default
     public Integer views = 0;
     @Builder.Default

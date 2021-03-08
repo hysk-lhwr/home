@@ -50,6 +50,9 @@ public class ArticleService {
             .contentHtml(article.contentHtml)
             .views(article.views)
             .likes(positiveFeedbacks.size())
+            .categories(article.categories)
+            .keywords(article.keywords)
+            .preview(article.preview)
             .build();
     }
 

@@ -7,4 +7,7 @@ export interface FullContent {
     contentHtml: string;
     views: number;
     likes: number;
+    categories: string[];
+    keywords: string[];
+    preview: string;
 }

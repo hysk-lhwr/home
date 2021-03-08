@@ -74,6 +74,11 @@ body {
         border-bottom-style: solid;
         border-bottom-color: $border-color-light;
     }
+
+    .btm-liner-bold {
+        padding-bottom: $spacing-cnt;
+        border-bottom: 2px solid $border-color-light;
+    }
     
     .right-liner {
         padding-right: $spacing-cnt;
@@ -104,6 +109,11 @@ body {
     .flex-column {
         display: flex;
         flex-direction: column;
+    }
+
+    .flex-center {
+        justify-content: center;
+        align-items: center;
     }
 
     .sp-cpt {

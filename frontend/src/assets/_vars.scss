@@ -5,6 +5,7 @@ $foggy-grey: rgb(168, 168, 168);
 $rainy-grey: #808080;
 $solid-white: #fff;
 $solid-dark: #000;
+$subtle-red: rgb(241, 131, 112);
 
 // color
 $color-background-unset: rgba(#fff, 1);
@@ -17,6 +18,7 @@ $color-text-strong: rgba(#000, 1);
 $color-text-subtle: rgba(#808080, 0.9);
 $color-text-highlight: rgba(#000, 1);
 $color-text-selected: rgba(#000, 1);
+$color-warning: $subtle-red;
 
 // spacing
 // cpt: contains component
