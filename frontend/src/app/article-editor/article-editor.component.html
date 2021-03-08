@@ -30,11 +30,13 @@
                 <p class="label"> Back To Edit</p>
             </div>    
         </div>
-        <div *ngIf="!previewMode" class="editable -markdown-editor sp-itm btm-liner-light">
-            <textarea #contentRef type="text" id="contentMarkdown" [(ngModel)]="contentMarkdown" value="contentMarkdown" placeholder="Edit content."></textarea>
-            <label for="contentMarkdown">Content: </label>
+        <div [ngClass]="{'show-preview': !!previewMode, 'show-editor': !previewMode}">
+            <div class="editable -markdown-editor sp-itm btm-liner-light">
+                <textarea #contentRef type="text" id="contentMarkdown" [(ngModel)]="contentMarkdown" value="contentMarkdown" placeholder="Edit content."></textarea>
+                <label for="contentMarkdown">Content: </label>
+            </div>
+            <div class="article-viewer sp-itm" [innerHtml]="renderedString"></div>    
         </div>
-        <div *ngIf="!!previewMode" class="article-viewer sp-itm" [innerHtml]="renderedString"></div>
     </div>
     <div class="editor-footer flex-row sp-cnt-sub">
         <div class="button delete-draft sp-itm link"><p class="label">Delete Draft</p></div>
