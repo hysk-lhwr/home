@@ -51,8 +51,8 @@
         </div>
     </div>
     <div class="editor-footer flex-row sp-cnt-sub">
-        <div class="button delete-draft sp-itm link"><p class="label">Delete Draft</p></div>
-        <div class="button save-and-leave sp-itm link"><p class="label">Save & Leave</p></div>
+        <div class="button delete-draft sp-itm link" (click)="deleteArticle()"><p class="label">Delete Draft</p></div>
+        <div class="button save-and-leave sp-itm link"(click)="saveAndExit()"><p class="label">Save & Leave</p></div>
         <div class="button publish sp-itm link" (click)=publishArticle()><p class="label">Publish</p></div>
     </div>
 </div>

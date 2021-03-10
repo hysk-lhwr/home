@@ -15,9 +15,7 @@ export class PreviewListComponent implements OnInit, OnChanges, OnDestroy {
 
   shortenedArticles: ShortenedArticle[] = [];
 
-  constructor(private articlesService: ArticlesService) { }
-
-  ngOnInit() {
+  constructor(private articlesService: ArticlesService) {
     this.articlesService.getArticles().pipe(
       takeUntil(this.destroy$)
     ).subscribe(
@@ -29,6 +27,9 @@ export class PreviewListComponent implements OnInit, OnChanges, OnDestroy {
         }
       }
     );
+   }
+
+  ngOnInit() {
   }
 
   ngOnDestroy() {
