@@ -53,6 +53,7 @@ public class ArticleService {
             .categories(article.categories)
             .keywords(article.keywords)
             .preview(article.preview)
+            .status(article.status)
             .build();
     }
 
