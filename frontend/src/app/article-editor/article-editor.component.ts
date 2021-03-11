@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ActivationEnd, Router } from '@angular/router';
+import { ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { fromEvent, of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { FullContent } from '../models/full-content';
@@ -22,6 +22,7 @@ import { UserService } from '../service/user.service';
 export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroyRouterSub$: Subject<boolean> = new Subject<boolean>();
 
   // the name of this Subject can be confusing
   // it retrieves id from the navigation event
@@ -109,8 +110,8 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     );
 
     this.router.events.pipe(
-      takeUntil(this.destroy$),
-      filter(e => e instanceof ActivationEnd)
+      takeUntil(this.destroyRouterSub$),
+      filter(e => e instanceof NavigationEnd),
     ).subscribe(
       e => {
         const navigation = this.router.getCurrentNavigation();
@@ -120,6 +121,7 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
         } else {
           this.router.navigateByUrl('articles');
         }
+        this.destroyRouterSub$.next(true);
       }
     );
   }

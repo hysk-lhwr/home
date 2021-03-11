@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivationEnd, Router } from '@angular/router';
+import { ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { FullContent } from '../models/full-content';
@@ -19,6 +19,7 @@ import { UserService } from '../service/user.service';
 export class FullContentComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroyRouterSub$: Subject<boolean> = new Subject<boolean>();
   private newArticleIdSubject: Subject<string> = new Subject<string>();
   
   user: User;
@@ -72,8 +73,8 @@ export class FullContentComponent implements OnInit, OnDestroy {
     );
 
     this.router.events.pipe(
-      takeUntil(this.destroy$),
-      filter(e => e instanceof ActivationEnd)
+      takeUntil(this.destroyRouterSub$),
+      filter(e => e instanceof NavigationEnd),
     ).subscribe(
       e => {
         const navigation = this.router.getCurrentNavigation();
@@ -83,6 +84,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
         } else {
           this.router.navigateByUrl('articles');
         }
+        this.destroyRouterSub$.next(true);
       }
     );
   }

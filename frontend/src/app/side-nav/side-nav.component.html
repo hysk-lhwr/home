@@ -1,15 +1,11 @@
 <div class="nav-container sp-cnt">
-    <div class="nav-item link sp-itm" routerLink="" routerLinkActive="active">
-        <div class="nav-text">
-            <p class="label">Home</p>
-        </div>
-        <div class="nav-icon"></div>
-    </div>
-    <div *ngIf="!user?.timeLoggedin" class="nav-item link sp-itm" routerLink="/login" routerLinkActive="active">
-        <div class="nav-text">
-            <p class="label">login</p>
-        </div>
-        <div class="nav-icon"></div>
+    <div *ngFor="let nav of navList?.navItems">
+        <div class="nav-item link sp-itm" routerLink="{{nav.navUrl}}" routerLinkActive="active">
+            <div class="nav-text">
+                <p class="label">{{nav.name}}</p>
+            </div>
+            <div class="nav-icon"></div>
+        </div>    
     </div>
     <div *ngIf="user?.timeLoggedin" class="nav-item link sp-itm" routerLink="/" routerLinkActive="active" (click)="logout()">
         <div class="nav-text">
