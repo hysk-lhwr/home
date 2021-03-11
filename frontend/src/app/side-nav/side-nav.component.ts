@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { SideNavList } from '../models/side-nav-list/side-nav-list';
 import { User } from '../models/user';
+import { ConstantsService } from '../service/constants.service';
 import { NavListService } from '../service/nav-list.service';
 import { UserService } from '../service/user.service';
 
@@ -15,9 +16,16 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   user: User;
   navList: SideNavList;
+  iconPath = this.constants.iconPath;
+  iconColor = {
+    home: this.constants.iconColor.regular,
+    login: this.constants.iconColor.regular,
+    logout: this.constants.iconColor.regular,
+    new: this.constants.iconColor.regular,
+  }
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private userService: UserService, private navService: NavListService) {
+  constructor(private userService: UserService, private navService: NavListService, private constants: ConstantsService) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$)
@@ -44,5 +52,13 @@ export class SideNavComponent implements OnInit, OnDestroy {
 
   logout(): void {
     this.userService.logout();
+  }
+
+  hoverIcon(key: string): void {
+    this.iconColor[key] = this.constants.iconColor.highlight;
+  }
+
+  hoverEnds(key: string): void {
+    this.iconColor[key] = this.constants.iconColor.regular;
   }
 }

@@ -5,10 +5,16 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-end;
+    align-items: center;
 
     &:hover {
         p {
             color: $light-blue;
         }
+    }
+
+    svg {
+        margin-top: 3px;
+        margin-left: 2px;
     }
 }

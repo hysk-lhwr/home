@@ -2,23 +2,23 @@ import { SideNavItem } from "./side-nav-item";
 import { SideNavList } from "./side-nav-list";
 
 export const navItemHome: SideNavItem = {
-    name: 'Home',
+    name: 'home',
     navUrl: '/',
-    iconUrl: '',
+    iconName: 'home',
     requireLogin: false,
 }
 
 export const navItemLogin: SideNavItem = {
     name: 'login',
     navUrl: '/login',
-    iconUrl: '',
+    iconName: 'login',
     requireLogin: false,
 }
 
 export const navItemNew: SideNavItem = {
     name: 'new',
     navUrl: '/new',
-    iconUrl: '',
+    iconName: 'new',
     requireLogin: true,
 }
 
