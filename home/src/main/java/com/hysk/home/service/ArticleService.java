@@ -32,6 +32,7 @@ public class ArticleService {
                     .articleTitle(entity.title)
                     .preview(entity.preview)
                     .keywords(entity.keywords)
+                    .status(entity.status)
                     .categories(entity.categories).build()
             ).collect(Collectors.toList());
 
