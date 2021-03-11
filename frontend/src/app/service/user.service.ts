@@ -57,6 +57,7 @@ export class UserService {
             timeLoggedin: null
         };
         this.user = defaultUser;
+        localStorage.setItem('user', JSON.stringify(defaultUser));
         this.publishUser();
     }
 
@@ -71,7 +72,7 @@ export class UserService {
         this.user.timeLoggedin = new Date();
         
         localStorage.setItem('user', JSON.stringify(this.user));
-        
+
         this.publishUser();
     }
 

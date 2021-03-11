@@ -1,6 +1,6 @@
 <div class="nav-container sp-cnt">
     <div *ngFor="let nav of navList?.navItems">
-        <div class="nav-item link sp-itm" routerLink="{{nav.navUrl}}" routerLinkActive="active">
+        <div *ngIf="nav.requireLogin? (!!user?.timeLoggedin): true" class="nav-item link sp-itm" routerLink="{{nav.navUrl}}" routerLinkActive="active">
             <div class="nav-text">
                 <p class="label">{{nav.name}}</p>
             </div>

@@ -1,0 +1,14 @@
+@import"../../assets/vars";
+
+.nav-item {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+
+    &:hover {
+        p {
+            color: $light-blue;
+        }
+    }
+}

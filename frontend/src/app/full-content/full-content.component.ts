@@ -6,6 +6,7 @@ import { FullContent } from '../models/full-content';
 import { Role } from '../models/role';
 import { User } from '../models/user';
 import { ConstantsService } from '../service/constants.service';
+import { DeleteArticleService } from '../service/delete-article.service';
 import { FullContentService } from '../service/full-content.service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
 import { UserService } from '../service/user.service';
@@ -27,15 +28,19 @@ export class FullContentComponent implements OnInit, OnDestroy {
   fullContent: FullContent = null;
   renderedString: string = null;
   admin: Role = Role.ADMIN;
-  iconColor: string = this.constants.iconColor.regular;
   iconPath = this.constants.iconPath;
+  iconColor: {} = {
+    delete: this.constants.iconColor.regular,
+    edit: this.constants.iconColor.regular,
+  }
 
   constructor(
     private router: Router, 
     private fullContentService: FullContentService,
     private markdownRendererService: MarkdownRendererService,
     private userService: UserService, 
-    private constants: ConstantsService) {
+    private constants: ConstantsService, 
+    private deleteService: DeleteArticleService) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$),
@@ -101,11 +106,16 @@ export class FullContentComponent implements OnInit, OnDestroy {
     this.router.navigateByUrl('/editor', {state: {articleId: this.articleId}});
   }
 
-  hoverIcon() {
-    this.iconColor = this.constants.iconColor.highlight;
+  deleteArticle() {
+    this.deleteService.deleteArticle(this.articleId).subscribe();
+    this.router.navigateByUrl('/articles');
   }
 
-  hoverEnds() {
-    this.iconColor = this.constants.iconColor.regular;
+  hoverIcon(key: string, col: string) {
+    this.iconColor[key] = this.constants.iconColor[col];
+  }
+
+  hoverEnds(key: string, col: string) {
+    this.iconColor[key] = this.constants.iconColor[col];
   }
 }

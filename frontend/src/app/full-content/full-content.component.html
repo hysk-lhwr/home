@@ -1,10 +1,17 @@
-<div *ngIf="!!fullContent" class="sp-cpt  btm-liner-light">
+<div *ngIf="!!fullContent" class="sp-cpt btm-liner-light">
     <div class="title-row flex-row sp-itm">
         <p class="title">{{fullContent?.title}}</p>
-        <div *ngIf="!!user?.timeLoggedin" class="edit-icon link" (click)="editArticle()" on-mouseenter="hoverIcon()" on-mouseleave="hoverEnds()">
-            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" [attr.fill]="iconColor">
-                <path [attr.d]="iconPath?.edit"></path>
-            </svg>
+        <div class="icon-container flex-row">
+            <div *ngIf="!!user?.timeLoggedin" class="edit-icon link" (click)="editArticle()" on-mouseenter="hoverIcon('edit', 'highlight')" on-mouseleave="hoverEnds('edit', 'regular')">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" [attr.fill]="iconColor?.edit">
+                    <path [attr.d]="iconPath?.edit"></path>
+                </svg>
+            </div>    
+            <div *ngIf="!!user?.timeLoggedin" class="delete-icon link" (click)="deleteArticle()" on-mouseenter="hoverIcon('delete', 'delete')" on-mouseleave="hoverEnds('delete', 'regular')">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" [attr.fill]="iconColor?.delete">
+                    <path [attr.d]="iconPath?.delete"></path>
+                </svg>
+            </div>    
         </div>
     </div>
     <div class="sp-itm flex-row">
