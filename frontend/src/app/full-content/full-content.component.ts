@@ -154,7 +154,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
       const currentArticle = this.articlesLink.getNodeByValue(this.articleId);
       if (currentArticle.previous) {
         this.navList.navItems.push({
-          navUrl: "article/" + encodeURI(currentArticle.previous.title),
+          navUrl: "article/" + encodeURIComponent(currentArticle.previous.title),
           iconName: 'previous',
           name: 'previous',
           requireLogin: false,
@@ -165,7 +165,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
       }
       if (currentArticle.next) {
         this.navList.navItems.push({
-          navUrl: "article/" + encodeURI(currentArticle.next.title),
+          navUrl: "article/" + encodeURIComponent(currentArticle.next.title),
           iconName: 'next',
           name: 'next',
           requireLogin: false,

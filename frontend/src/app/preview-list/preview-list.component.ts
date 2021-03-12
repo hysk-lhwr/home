@@ -37,10 +37,13 @@ export class PreviewListComponent implements OnInit, OnChanges, OnDestroy {
           this.shortenedArticles = [].concat(
             Object.assign([], response.articles)
           );
+          this.articlesLinkService.resetLink();
           this.shortenedArticles.forEach(
             article => {
-              const articleNode = new Node(article.articleId, article.status, article.articleTitle);
-              this.articlesLinkService.append(articleNode);
+              if(this.checkVisibility(article)) {
+                const articleNode = new Node(article.articleId, article.status, article.articleTitle);
+                this.articlesLinkService.append(articleNode);  
+              }
             }
           )
         }
