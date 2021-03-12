@@ -26,5 +26,5 @@ export const navItemNew: SideNavItem = {
 }
 
 export const navListDefault: SideNavList = {
-    navItems: [navItemHome, navItemLogin, navItemNew],
+    navItems: [navItemHome, navItemNew],
 }

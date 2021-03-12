@@ -20,7 +20,7 @@ export class NavListService {
 
     public resetList() {
         const defaultList = {
-            navItems: [navItemHome, navItemLogin, navItemNew],
+            navItems: [navItemHome, navItemNew],
         }
         this.navList = defaultList;
         this.navListSubject.next(this.navList);

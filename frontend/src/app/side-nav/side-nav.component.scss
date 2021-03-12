@@ -19,6 +19,10 @@
     }
 }
 
+.login-logout {
+    margin-top: $spacing-cnt;
+}
+
 @media screen and (max-width: 812px) {
     .nav-item-text {
         display: none;
