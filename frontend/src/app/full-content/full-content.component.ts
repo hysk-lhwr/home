@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivationEnd, NavigationEnd, Router } from '@angular/router';
+import { ActivationEnd, NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { FullContent } from '../models/full-content';
@@ -101,24 +101,33 @@ export class FullContentComponent implements OnInit, OnDestroy {
     );
 
     this.router.events.pipe(
-      takeUntil(this.destroy$),
-      filter(e => e instanceof NavigationEnd),
+      takeUntil(this.destroyRouterSub$),
+      filter(e => (e instanceof NavigationEnd) || (e instanceof NavigationStart)),
     ).subscribe(
       e => {
         const navigation = this.router.getCurrentNavigation();
-        this.articleId = navigation.extras.state ? navigation.extras.state.articleId : null;
-        if(this.articleId) {
 
-          // fire articleId subject to retrieve full content
-          this.newArticleIdSubject.next(this.articleId);
-
-          // updates nav list
-          this.updateNav();
-
-        } else {
-          this.router.navigateByUrl('articles');
+        if (e instanceof NavigationEnd) {
+          this.articleId = navigation.extras.state ? navigation.extras.state.articleId : null;
+          if(this.articleId) {
+  
+            // fire articleId subject to retrieve full content
+            this.newArticleIdSubject.next(this.articleId);
+  
+            // updates nav list
+            this.updateNav();
+  
+          } else {
+            this.router.navigateByUrl('articles');
+          }  
         }
-        this.destroyRouterSub$.next(true);
+
+        if (e instanceof NavigationStart) {
+          const currentUrl = navigation.extractedUrl.toString();
+          if (!currentUrl.startsWith('/article/')) {
+            this.destroyRouterSub$.next(true);
+          }
+        }
       }
     );
   }
