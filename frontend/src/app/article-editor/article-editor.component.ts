@@ -1,10 +1,13 @@
 import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
-import { ActivationEnd, Router } from '@angular/router';
+import { ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { fromEvent, of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil } from 'rxjs/operators';
 import { FullContent } from '../models/full-content';
+import { Status } from '../models/status';
 import { UpdateArticleRequest, updateArticleRequestDefault } from '../models/update-article-request';
 import { User } from '../models/user';
+import { ConstantsService } from '../service/constants.service';
+import { DeleteArticleService } from '../service/delete-article.service';
 import { FullContentService } from '../service/full-content.service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
 import { UpdateArticleService } from '../service/update-article.service';
@@ -19,10 +22,18 @@ import { UserService } from '../service/user.service';
 export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private destroy$: Subject<boolean> = new Subject<boolean>();
+  private destroyRouterSub$: Subject<boolean> = new Subject<boolean>();
+
+  // the name of this Subject can be confusing
+  // it retrieves id from the navigation event
+  // which can either be the id of an existing article
+  // or the id just created by the new article component
   private newArticleIdSubject: Subject<string> = new Subject<string>();
 
   @ViewChild('contentRef', {static: false}) textInput: ElementRef;
   private textInputSubscription: Subscription;
+  private requestSubject: Subject<UpdateArticleRequest> = new Subject<UpdateArticleRequest>();
+  private request$ = this.requestSubject.asObservable();
 
   articleId: string;
   renderedString: string = null;
@@ -36,6 +47,9 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
   updateArticleRequest: UpdateArticleRequest = updateArticleRequestDefault;
   user: User;
   previewMode: boolean = false;
+  iconColor = this.constants.iconColor;
+  iconPath = this.constants.iconPath;
+  currentStatus: Status = Status.DRAFT;
   emptyContent: FullContent = {
     createdDate: null,
     editedDate: null,
@@ -48,6 +62,7 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     categories: null,
     keywords: null,
     preview: null,
+    status: Status.DRAFT,
   }
 
   constructor(
@@ -55,11 +70,21 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     private fullContentService: FullContentService,
     private markdownRendererService: MarkdownRendererService, 
     private userService: UserService, 
-    private updateArticleService: UpdateArticleService) {
+    private updateArticleService: UpdateArticleService, 
+    private constants: ConstantsService, 
+    private deleteService: DeleteArticleService) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$)
     ).subscribe(u => this.user = u)
+
+    this.request$.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(
+      request => {
+        this.updateArticleService.updateArticle(request).subscribe();
+      }
+    )
   
     this.newArticleIdSubject.pipe(
       takeUntil(this.destroy$),
@@ -67,7 +92,6 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
         id => {
           return this.fullContentService.getFullContent(id).pipe(
             catchError(e => {
-              console.log('no such article');
               return of(this.emptyContent)
             })
           )
@@ -80,12 +104,13 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
         this.labels = response.keywords? response.keywords.join(',') : null;
         this.preview = response.preview? response.preview : null;
         this.contentMarkdown = response.contentMarkdown? response.contentMarkdown : null;
+        this.currentStatus = response.status;
       }
     );
 
     this.router.events.pipe(
-      takeUntil(this.destroy$),
-      filter(e => e instanceof ActivationEnd)
+      takeUntil(this.destroyRouterSub$),
+      filter(e => e instanceof NavigationEnd),
     ).subscribe(
       e => {
         const navigation = this.router.getCurrentNavigation();
@@ -95,6 +120,7 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
         } else {
           this.router.navigateByUrl('articles');
         }
+        this.destroyRouterSub$.next(true);
       }
     );
   }
@@ -124,12 +150,7 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
       // setup unsub
       takeUntil(this.destroy$),
     ).subscribe(request => {
-      console.log(request);
-      this.updateArticleService.updateArticle(request).subscribe(
-        response => {
-          console.log(response);
-        }
-      );
+      this.requestSubject.next(request);
     })
   }
 
@@ -138,14 +159,21 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     this.destroy$.unsubscribe();
   }
 
-  public adjustHeight(el: HTMLElement): void{
-    el.style.height = (el.scrollHeight > el.clientHeight) ? (el.scrollHeight)+"px" : el.style.height;
+  public publishArticle() {
+    this.currentStatus = Status.PUBLISHED;
+    this.requestSubject.next(this.createRequest());
+    this.exitPage();
   }
 
-  public publishArticle() {
-    // update status, contentHtml, contentRaw
-    // createRequest
-    // sendRequest
+  public deleteArticle() {
+    this.deleteService.deleteArticle(this.articleId).subscribe();
+    this.exitPage();
+  }
+
+  public saveAndExit() {
+    this.currentStatus = Status.DRAFT;
+    this.requestSubject.next(this.createRequest());
+    this.exitPage();
   }
 
   public togglePreview() {
@@ -155,16 +183,24 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     }
   }
 
+  private exitPage() {
+    this.updateArticleRequest = updateArticleRequestDefault;
+    this.router.navigateByUrl("/articles");
+  }
+
   private createRequest(): UpdateArticleRequest {
-    this.updateArticleRequest.articleId = this.articleId;
-    this.updateArticleRequest.udpatedBy = this.user.username;
-    this.updateArticleRequest.title = this.title;
-    this.updateArticleRequest.keywords = this.getKeywords();
-    this.updateArticleRequest.categories = this.getCategories();
-    this.updateArticleRequest.preview = this.preview;
-    this.updateArticleRequest.contentMarkdown = this.contentMarkdown;
-    this.updateArticleRequest.contentHtml = this.contentHtml;
-    this.updateArticleRequest.contentRaw = this.contentRaw;
+    this.updateArticleRequest = {
+      articleId: this.articleId,
+      udpatedBy: this.user.username,
+      title: this.title,
+      keywords: this.getKeywords(),
+      categories: this.getCategories(),
+      preview: this.preview,
+      contentMarkdown: this.contentMarkdown,
+      contentHtml: this.contentHtml,
+      contentRaw: this.contentRaw,
+      status: this.currentStatus,
+      }
     return this.updateArticleRequest;
   }
 

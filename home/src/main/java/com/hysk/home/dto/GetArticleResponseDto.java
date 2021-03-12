@@ -3,6 +3,8 @@ package com.hysk.home.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.hysk.home.model.Status;
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -20,4 +22,5 @@ public class GetArticleResponseDto {
     List<String> categories;
     List<String> keywords;
     String preview;
+    Status status;
 }

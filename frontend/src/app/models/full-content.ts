@@ -1,3 +1,5 @@
+import { Status } from "./status";
+
 export interface FullContent {
     title: string;
     createdDate: Date;
@@ -10,4 +12,5 @@ export interface FullContent {
     categories: string[];
     keywords: string[];
     preview: string;
+    status: Status;
 }

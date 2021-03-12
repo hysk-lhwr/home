@@ -97,3 +97,34 @@ textarea:placeholder-shown + label {
         }
     }
 }
+
+.show-preview {
+    .-markdown-editor{
+        visibility: hidden;
+        height: 0px;
+
+        label {
+            display: none;
+        }
+    }
+    .article-viewer {
+        visibility: visible;
+        height: auto;
+    }
+}
+
+
+.show-editor {
+    .-markdown-editor{
+        visibility: visible;
+        height: auto;
+
+        label {
+            display: block;
+        }
+    }
+    .article-viewer {
+        visibility: hidden;
+        height: 0px;
+    }
+}

@@ -1,20 +1,27 @@
 <div class="nav-container sp-cnt">
-    <div class="nav-item link sp-itm" routerLink="" routerLinkActive="active">
-        <div class="nav-text">
-            <p class="label">Home</p>
-        </div>
-        <div class="nav-icon"></div>
+    <div *ngFor="let nav of navList?.navItems">
+        <div *ngIf="nav.requireLogin? (!!user?.timeLoggedin): true" class="nav-item link" 
+        on-mouseenter="hoverIcon(nav.iconName)" on-mouseleave="hoverEnds(nav.iconName)" (click)="navigate(nav)">
+            <p class="label nav-item-text">{{nav.name}}</p>
+            <div *ngIf="nav.iconName">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="16px" height="16px" [attr.fill]="iconColor[nav.iconName]">
+                    <path [attr.d]="iconPath[nav.name]"></path>
+                </svg>    
+            </div>
+        </div>    
     </div>
-    <div *ngIf="!user?.timeLoggedin" class="nav-item link sp-itm" routerLink="/login" routerLinkActive="active">
-        <div class="nav-text">
-            <p class="label">login</p>
-        </div>
-        <div class="nav-icon"></div>
+    <div *ngIf="!!user?.timeLoggedin" class="nav-item login-logout link" routerLink="/" routerLinkActive="active" 
+    (click)="logout()" on-mouseenter="hoverIcon('logout')" on-mouseleave="hoverEnds('logout')">
+        <p class="label nav-item-text">logout</p>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="16px" height="16px" [attr.fill]="iconColor['logout']">
+            <path [attr.d]="iconPath.logout"></path>
+        </svg>
     </div>
-    <div *ngIf="user?.timeLoggedin" class="nav-item link sp-itm" routerLink="/" routerLinkActive="active" (click)="logout()">
-        <div class="nav-text">
-            <p class="label">logout</p>
-        </div>
-        <div class="nav-icon"></div>
+    <div *ngIf="!user?.timeLoggedin" class="nav-item login-logout link" routerLink="/login" routerLinkActive="active" 
+    on-mouseenter="hoverIcon('login')" on-mouseleave="hoverEnds('login')">
+        <p class="label nav-item-text">login</p>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="16px" height="16px" [attr.fill]="iconColor['login']">
+            <path [attr.d]="iconPath.login"></path>
+        </svg>
     </div>
 </div>

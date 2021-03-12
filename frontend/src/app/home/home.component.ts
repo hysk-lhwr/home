@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { NavListService } from '../service/nav-list.service';
 
 @Component({
   selector: 'app-home',

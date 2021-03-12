@@ -1,0 +1,30 @@
+@import"../../assets/vars";
+
+.nav-item {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    &:hover {
+        p {
+            color: $light-blue;
+        }
+    }
+
+    svg {
+        margin-top: 3px;
+        margin-left: 2px;
+    }
+}
+
+.login-logout {
+    margin-top: $spacing-cnt;
+}
+
+@media screen and (max-width: 812px) {
+    .nav-item-text {
+        display: none;
+    }
+}

@@ -21,7 +21,12 @@ export class UserService {
     private userSubject: BehaviorSubject<User> = new BehaviorSubject<User>(this.user);
     public user$: Observable<User> = this.userSubject.asObservable();
 
-    constructor(private service: LogInService, private router: Router) {}
+    constructor(private service: LogInService, private router: Router) {
+        if(localStorage.getItem('user')) {
+            this.user = JSON.parse(localStorage.getItem('user')) as User;
+            this.publishUser();
+        }
+    }
 
     validateLogin(request: LoginRequest): void {
         // call login service
@@ -52,6 +57,7 @@ export class UserService {
             timeLoggedin: null
         };
         this.user = defaultUser;
+        localStorage.setItem('user', JSON.stringify(defaultUser));
         this.publishUser();
     }
 
@@ -64,6 +70,9 @@ export class UserService {
         this.user.role = response.role;
         this.user.username = response.username;
         this.user.timeLoggedin = new Date();
+        
+        localStorage.setItem('user', JSON.stringify(this.user));
+
         this.publishUser();
     }
 

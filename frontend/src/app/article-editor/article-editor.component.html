@@ -16,21 +16,43 @@
             <textarea type="text" id="preview" [(ngModel)]="preview" value="preview" placeholder="Add custom preview. If empty, the default will be the first 300 characters."></textarea>
             <label for="preview">Preview: </label>
         </div>
-        <div *ngIf="!previewMode" class="tool-bar sp-cnt-sub btm-liner-light link flex-row flex-center">
-            <p class="label" (click)="togglePreview()">Preivew Content</p>
+        <div class="tool-bar sp-cnt-sub btm-liner-light flex-row flex-center">
+            <div *ngIf="!previewMode" class="link flex-row flex-center" (click)="togglePreview()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" [attr.fill]="iconColor?.disabled">
+                    <path [attr.d]="iconPath?.toggleOff"></path>
+                </svg>    
+                <p class="label"> See Preivew</p>
+            </div>
+            <div *ngIf="!!previewMode" class="link flex-row flex-center" (click)="togglePreview()">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="24px" [attr.fill]="iconColor?.enabled">
+                    <path [attr.d]="iconPath?.toggleOn"></path>
+                </svg>    
+                <p class="label"> Back To Edit</p>
+            </div>    
         </div>
-        <div *ngIf="!!previewMode" class="tool-bar sp-cnt-sub btm-liner-light link flex-row flex-center">
-            <p class="label" (click)="togglePreview()">Back To Edit</p>
+
+        <!-- 
+            ngClass is used here instead of *ngIf due to the fact we are subscribing to #contenRef, {{ textInput }}, inside ngAfterViewInit.
+            *ngIf being false will cause this ElementRef to be destroyed and the subscription will be lost. 
+            Restoring contentRef and textInput won't automatically resume the subscription since it's created in ngAfterViewInit.
+
+            Another way to resolve this is to use ngAfterViewChecked instead of ngAfterViewInit, which will automatically resume the subscription when contentRef is created again. 
+            However, ngAfterViewChecked will re-create the subscription multiple times, causing too much traffic loads on each input event. 
+            There should ways to fix that, but I didn't check into it. 
+
+            Instead, I used ngClass to manipulate the visbility and height of markdown-editor and article-viewer to avoid it.
+         -->
+        <div [ngClass]="{'show-preview': !!previewMode, 'show-editor': !previewMode}">
+            <div class="editable -markdown-editor sp-itm btm-liner-light">
+                <textarea #contentRef type="text" id="contentMarkdown" [(ngModel)]="contentMarkdown" value="contentMarkdown" placeholder="Edit content."></textarea>
+                <label for="contentMarkdown">Content: </label>
+            </div>
+            <div class="article-viewer sp-itm" [innerHtml]="renderedString"></div>    
         </div>
-        <div *ngIf="!previewMode" class="editable -markdown-editor sp-itm btm-liner-light">
-            <textarea #contentRef type="text" id="contentMarkdown" [(ngModel)]="contentMarkdown" value="contentMarkdown" placeholder="Edit content."></textarea>
-            <label for="contentMarkdown">Content: </label>
-        </div>
-        <div *ngIf="!!previewMode" class="article-viewer sp-itm" [innerHtml]="renderedString"></div>
     </div>
     <div class="editor-footer flex-row sp-cnt-sub">
-        <div class="button delete-draft sp-itm link"><p class="label">Delete Draft</p></div>
-        <div class="button save-and-leave sp-itm link"><p class="label">Save & Leave</p></div>
+        <div class="button delete-draft sp-itm link" (click)="deleteArticle()"><p class="label">Delete Draft</p></div>
+        <div class="button save-and-leave sp-itm link"(click)="saveAndExit()"><p class="label">Save & Leave</p></div>
         <div class="button publish sp-itm link" (click)=publishArticle()><p class="label">Publish</p></div>
     </div>
 </div>

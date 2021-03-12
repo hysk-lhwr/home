@@ -1,3 +1,5 @@
 export enum Status {
-    'DRAFT', 'PUBLISHED', 'DELETED'
+    DRAFT = 'DRAFT', 
+    PUBLISHED = 'PUBLISHED', 
+    DELETED = 'DELETED',
 }

@@ -17,7 +17,7 @@ export class PreviewCardComponent implements OnInit {
 
   showFullArticle() {
     this.router.navigateByUrl(
-      '/article/' + encodeURI(this.article.articleTitle),
+      '/article/' + encodeURIComponent(this.article.articleTitle),
       {state: {articleId: this.article.articleId}}
     )
   }
