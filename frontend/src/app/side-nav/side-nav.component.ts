@@ -1,6 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { SideNavItem } from '../models/side-nav-list/side-nav-item';
 import { SideNavList } from '../models/side-nav-list/side-nav-list';
 import { User } from '../models/user';
 import { ConstantsService } from '../service/constants.service';
@@ -22,10 +24,12 @@ export class SideNavComponent implements OnInit, OnDestroy {
     login: this.constants.iconColor.regular,
     logout: this.constants.iconColor.regular,
     new: this.constants.iconColor.regular,
+    next: this.constants.iconColor.regular,
+    previous: this.constants.iconColor.regular,
   }
   private destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(private userService: UserService, private navService: NavListService, private constants: ConstantsService) {
+  constructor(private userService: UserService, private navService: NavListService, private constants: ConstantsService, private router: Router) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$)
@@ -48,6 +52,11 @@ export class SideNavComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  navigate(navItem: SideNavItem) {
+    this.navService.resetList();
+    this.router.navigateByUrl(navItem.navUrl, {state: navItem.state})
   }
 
   logout(): void {

@@ -1,6 +1,6 @@
 import { Injectable } from "@angular/core";
 import { BehaviorSubject } from "rxjs";
-import { navListDefault } from "../models/side-nav-list/nav-constants";
+import { navListDefault, navItemHome, navItemLogin, navItemNew } from "../models/side-nav-list/nav-constants";
 import { SideNavList } from "../models/side-nav-list/side-nav-list";
 
 @Injectable({
@@ -11,8 +11,18 @@ export class NavListService {
     private navListSubject: BehaviorSubject<SideNavList> = new BehaviorSubject<SideNavList>(this.navList);
     public navList$ = this.navListSubject.asObservable();
 
+    constructor() { }
+
     public setNavList(newList: SideNavList) {
         this.navList = newList;
+        this.navListSubject.next(this.navList);
+    }
+
+    public resetList() {
+        const defaultList = {
+            navItems: [navItemHome, navItemLogin, navItemNew],
+        }
+        this.navList = defaultList;
         this.navListSubject.next(this.navList);
     }
 }

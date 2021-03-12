@@ -6,6 +6,7 @@ export const navItemHome: SideNavItem = {
     navUrl: '/',
     iconName: 'home',
     requireLogin: false,
+    state: null,
 }
 
 export const navItemLogin: SideNavItem = {
@@ -13,6 +14,7 @@ export const navItemLogin: SideNavItem = {
     navUrl: '/login',
     iconName: 'login',
     requireLogin: false,
+    state: null,
 }
 
 export const navItemNew: SideNavItem = {
@@ -20,6 +22,7 @@ export const navItemNew: SideNavItem = {
     navUrl: '/new',
     iconName: 'new',
     requireLogin: true,
+    state: null,
 }
 
 export const navListDefault: SideNavList = {

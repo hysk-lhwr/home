@@ -3,12 +3,16 @@ import { ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { FullContent } from '../models/full-content';
+import { LinkedList } from '../models/linkables/linked-list';
 import { Role } from '../models/role';
+import { SideNavList } from '../models/side-nav-list/side-nav-list';
 import { User } from '../models/user';
+import { ArticlesLinkService } from '../service/articles-link.service';
 import { ConstantsService } from '../service/constants.service';
 import { DeleteArticleService } from '../service/delete-article.service';
 import { FullContentService } from '../service/full-content.service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
+import { NavListService } from '../service/nav-list.service';
 import { UserService } from '../service/user.service';
 
 @Component({
@@ -32,7 +36,9 @@ export class FullContentComponent implements OnInit, OnDestroy {
   iconColor: {} = {
     delete: this.constants.iconColor.regular,
     edit: this.constants.iconColor.regular,
-  }
+  };
+  articlesLink: LinkedList;
+  navList: SideNavList;
 
   constructor(
     private router: Router, 
@@ -40,11 +46,28 @@ export class FullContentComponent implements OnInit, OnDestroy {
     private markdownRendererService: MarkdownRendererService,
     private userService: UserService, 
     private constants: ConstantsService, 
-    private deleteService: DeleteArticleService) {
+    private deleteService: DeleteArticleService,
+    private navListService: NavListService,
+    private articlesLinkService: ArticlesLinkService) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$),
     ).subscribe(u => this.user=u);
+
+    this.articlesLinkService.articlesLink$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe(
+      link => {
+        this.articlesLink = link;
+        this.updateNav();
+      }
+    );
+
+    this.navListService.navList$.pipe(
+      takeUntil(this.destroy$),
+    ).subscribe(
+      l => this.navList = l
+    );
   
     this.newArticleIdSubject.pipe(
       takeUntil(this.destroy$),
@@ -78,14 +101,20 @@ export class FullContentComponent implements OnInit, OnDestroy {
     );
 
     this.router.events.pipe(
-      takeUntil(this.destroyRouterSub$),
+      takeUntil(this.destroy$),
       filter(e => e instanceof NavigationEnd),
     ).subscribe(
       e => {
         const navigation = this.router.getCurrentNavigation();
         this.articleId = navigation.extras.state ? navigation.extras.state.articleId : null;
         if(this.articleId) {
+
+          // fire articleId subject to retrieve full content
           this.newArticleIdSubject.next(this.articleId);
+
+          // updates nav list
+          this.updateNav();
+
         } else {
           this.router.navigateByUrl('articles');
         }
@@ -117,5 +146,35 @@ export class FullContentComponent implements OnInit, OnDestroy {
 
   hoverEnds(key: string, col: string) {
     this.iconColor[key] = this.constants.iconColor[col];
+  }
+
+  private updateNav(): void {
+    if (!!this.articlesLink && !!this.articleId) {
+      // add nav items for next and previous article
+      const currentArticle = this.articlesLink.getNodeByValue(this.articleId);
+      if (currentArticle.previous) {
+        this.navList.navItems.push({
+          navUrl: "article/" + encodeURI(currentArticle.previous.title),
+          iconName: 'previous',
+          name: 'previous',
+          requireLogin: false,
+          state: {
+            articleId: currentArticle.previous.value,
+          }
+        });
+      }
+      if (currentArticle.next) {
+        this.navList.navItems.push({
+          navUrl: "article/" + encodeURI(currentArticle.next.title),
+          iconName: 'next',
+          name: 'next',
+          requireLogin: false,
+          state: {
+            articleId: currentArticle.next.value,
+          }
+        });
+      }
+      this.navListService.setNavList(this.navList);
+    }
   }
 }

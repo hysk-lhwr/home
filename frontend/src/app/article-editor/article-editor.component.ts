@@ -92,7 +92,6 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
         id => {
           return this.fullContentService.getFullContent(id).pipe(
             catchError(e => {
-              console.log('no such article');
               return of(this.emptyContent)
             })
           )

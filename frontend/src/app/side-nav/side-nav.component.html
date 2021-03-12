@@ -1,7 +1,7 @@
 <div class="nav-container sp-cnt">
     <div *ngFor="let nav of navList?.navItems">
-        <div *ngIf="nav.requireLogin? (!!user?.timeLoggedin): true" class="nav-item link sp-itm" routerLink="{{nav.navUrl}}" 
-        routerLinkActive="active" on-mouseenter="hoverIcon(nav.iconName)" on-mouseleave="hoverEnds(nav.iconName)">
+        <div *ngIf="nav.requireLogin? (!!user?.timeLoggedin): true" class="nav-item link sp-itm" 
+        on-mouseenter="hoverIcon(nav.iconName)" on-mouseleave="hoverEnds(nav.iconName)" (click)="navigate(nav)">
             <p class="label nav-item-text">{{nav.name}}</p>
             <div *ngIf="nav.iconName">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="16px" height="16px" [attr.fill]="iconColor[nav.iconName]">
