@@ -52,10 +52,11 @@
             border-bottom: 1px;
             border-bottom-style: solid;
             border-bottom-color: $border-color-light;
-            }
+        }
     
         .center-display {
             grid-row: 2/3;
+            margin: 0 auto;
         }
 
         .side-bar {
