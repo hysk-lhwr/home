@@ -3,12 +3,22 @@
 @media screen and (min-width: 813px) {
     div.content {
         display: grid;
-        grid-template-columns: auto minmax(80ch, auto) auto;
-        grid-gap: 1rem;
+        grid-template-columns: 14% 48% 34%;
+        grid-gap: 2%;
 
         .side-nav {
             grid-column: 1/2;
-        }
+
+            justify-content: flex-end;
+
+            margin: $spacing-cpt 0;
+            padding: $spacing-cpt 0;
+
+            padding-right: $spacing-cnt;
+            border-right: 1px;
+            border-right-style: solid;
+            border-right-color: $border-color-light;
+            }
     
         .center-display {
             grid-column: 2/3;
@@ -27,15 +37,26 @@
 @media screen and (max-width: 812px) {
     div.content {
         display: grid;
-        grid-template-columns: max-content auto;
+        grid-template-rows: max-content auto;
         grid-gap: 0;
 
         .side-nav {
-            grid-column: 1/2;
+            grid-row: 1/2;
+
+            justify-content: flex-start;
+            margin: $spacing-itm 0;
+            padding: $spacing-itm 0;
+
+            background-color: rgba($solid-white, 0.9);
+
+            border-bottom: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: $border-color-light;
         }
     
         .center-display {
-            grid-column: 2/3;
+            grid-row: 2/3;
+            margin: 0 auto;
         }
 
         .side-bar {
@@ -46,11 +67,11 @@
 
 div.content {
     .side-nav {
+        z-index: 1;
         position: sticky;
         top: 0;
 
         display: flex;
-        justify-content: flex-end;
 
         height: max-content;
     }
@@ -59,7 +80,5 @@ div.content {
         padding: 0.23em;
         max-width: 80ch;
         height: max-content;
-
-        overflow: auto;
     }
 }

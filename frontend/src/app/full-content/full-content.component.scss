@@ -1,6 +1,18 @@
 @import "../../assets/custom-styles/article-viewer.scss";
 
-.title-row {
-    justify-content: space-between;
-    align-items: center;
+
+.full-content-container {
+    max-width: 96vw;
+    
+    .title-row {
+        z-index: 0;
+        position: sticky;
+        top: 0;
+        padding-top: 2rem;
+        background: rgba($color: #fff, $alpha: 0.9);
+
+        justify-content: space-between;
+        align-items: center;
+    }
+
 }
