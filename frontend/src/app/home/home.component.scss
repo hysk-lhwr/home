@@ -3,12 +3,17 @@
 @media screen and (min-width: 813px) {
     div.content {
         display: grid;
-        grid-template-columns: auto minmax(80ch, auto) auto;
-        grid-gap: 1rem;
+        grid-template-columns: 14% 48% 34%;
+        grid-gap: 2%;
 
         .side-nav {
             grid-column: 1/2;
-        }
+
+            padding-right: $spacing-cnt;
+            border-right: 1px;
+            border-right-style: solid;
+            border-right-color: $border-color-light;
+            }
     
         .center-display {
             grid-column: 2/3;
@@ -27,15 +32,22 @@
 @media screen and (max-width: 812px) {
     div.content {
         display: grid;
-        grid-template-columns: max-content auto;
+        grid-template-rows: max-content auto;
         grid-gap: 0;
 
         .side-nav {
-            grid-column: 1/2;
-        }
+            grid-row: 1/2;
+
+            background-color: rgba($solid-white, 0.9);
+
+            padding-bottom: $spacing-cnt;
+            border-bottom: 1px;
+            border-bottom-style: solid;
+            border-bottom-color: $border-color-light;
+            }
     
         .center-display {
-            grid-column: 2/3;
+            grid-row: 2/3;
         }
 
         .side-bar {
@@ -59,7 +71,5 @@ div.content {
         padding: 0.23em;
         max-width: 80ch;
         height: max-content;
-
-        overflow: auto;
     }
 }

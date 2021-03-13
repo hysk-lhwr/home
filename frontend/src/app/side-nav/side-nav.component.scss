@@ -24,6 +24,12 @@
 }
 
 @media screen and (max-width: 812px) {
+
+    .nav-container {
+        display: flex;
+        flex-direction: row;
+        
+    }
     .nav-item-text {
         display: none;
     }
