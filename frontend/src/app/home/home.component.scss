@@ -9,6 +9,11 @@
         .side-nav {
             grid-column: 1/2;
 
+            justify-content: flex-end;
+
+            margin: $spacing-cpt 0;
+            padding: $spacing-cpt 0;
+
             padding-right: $spacing-cnt;
             border-right: 1px;
             border-right-style: solid;
@@ -38,9 +43,12 @@
         .side-nav {
             grid-row: 1/2;
 
+            justify-content: flex-start;
+            margin: $spacing-itm 0;
+            padding: $spacing-itm 0;
+
             background-color: rgba($solid-white, 0.9);
 
-            padding-bottom: $spacing-cnt;
             border-bottom: 1px;
             border-bottom-style: solid;
             border-bottom-color: $border-color-light;
@@ -62,7 +70,6 @@ div.content {
         top: 0;
 
         display: flex;
-        justify-content: flex-end;
 
         height: max-content;
     }

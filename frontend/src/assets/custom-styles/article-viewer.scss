@@ -10,9 +10,7 @@ div.article-viewer {
     color: $color-text-regular;
 
     white-space: pre-wrap;
-    max-width: 80ch;
-
-    margin: $spacing-itm--sub;
+    word-break: break-all;
 
     p.h-lv1 {
         margin: $spacing-cnt--sub 0;

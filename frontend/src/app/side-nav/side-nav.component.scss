@@ -1,36 +1,58 @@
 @import"../../assets/vars";
 
-.nav-item {
+.nav-container {
 
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
+    margin: $spacing-cnt 0;
+    padding: $spacing-cnt 0;
 
-    &:hover {
-        p {
-            color: $light-blue;
+    .nav-item {
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+    
+        &:hover {
+            p {
+                color: $light-blue;
+            }
+        }
+    
+        svg {
+            margin-top: 3px;
+            margin-left: 2px;
         }
     }
-
-    svg {
-        margin-top: 3px;
-        margin-left: 2px;
-    }
+    
 }
 
-.login-logout {
+.login-logout-wrapper {
     margin-top: $spacing-cnt;
 }
+
 
 @media screen and (max-width: 812px) {
 
     .nav-container {
         display: flex;
         flex-direction: row;
-        
+
+        margin: 0 $spacing-cnt;
+        padding: 0 $spacing-cnt;
+
+        .login-logout-wrapper {
+            position: absolute;
+            margin-top: unset;
+            right: $spacing-cnt;
+        }
     }
+
     .nav-item-text {
         display: none;
+    }
+    
+    svg {
+        margin: 0 $spacing-itm;
+        padding: 0 $spacing-itm;
     }
 }
