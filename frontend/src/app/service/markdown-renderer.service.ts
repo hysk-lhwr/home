@@ -9,6 +9,7 @@ export class MarkdownRendererService {
     constructor(private constantsService: ConstantsService) {}
     
     public renderString(inputString: string):string {
+        inputString = '<p>' + inputString + '</p>'
         for(let op of this.constantsService.mkdownRenderPipeline) {
             inputString =  this.operatorRunner(inputString, op);
         }
