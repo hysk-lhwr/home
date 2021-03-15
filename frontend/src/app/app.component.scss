@@ -6,20 +6,25 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-
-    height: 10em;
+    height: 20em;
     border-bottom: 1px solid $border-color;
 
+    // background-image: url("../assets/images/photo/bkg1.jpg");
+    // background-position: bottom;
+    // background-size: cover;
+
     .menu-container {
-        margin: 1rem 0 1rem 2.68%;
-        
+        margin: 1rem 0 1rem 2%;
+
         .menu-lv1 {
             p {
-                font-size: 26px;
+                font-size: 24px;
                 font-weight: 100;
     
                 margin: 0.1rem 0;
                 padding: 0 0.68rem;
+
+                letter-spacing: 0.23em;
     
                 &:hover {
                     font-size: 28px;
@@ -29,13 +34,22 @@
         }
     
         .menu-lv2 {
+            overflow-y: auto;
+            justify-content: center;
             height: 80%;
             padding: 1rem 0;
-            overflow: auto;
+            padding-left: 0.68rem;
             -ms-overflow-style: none;
             scrollbar-width: none;
             
-            border-left: 1px solid $border-color-light;;
+            border-left: 1px solid $border-color-light;
+
+            p {
+                font-weight: 100;
+                letter-spacing: 0.15em;
+                font-size: 15px;
+                color: black;
+            }
         }
 
         .menu-lv2::-webkit-scrollbar {
@@ -45,21 +59,31 @@
 
     .logo-container {
         height: 100%;
-        margin-right: 2.68%;
+        margin-right: 2%;
 
         p, img {
-            padding: 0 1rem;
+            padding: 1rem 1.2rem;
         }
     
         img {
             height: 80%;
-            border-left: 1px solid $border-color-light;;
+            max-height: 200px;
+            border-left: 1px solid $border-color;
         }
     }
 }
 
 @media screen and (max-width: 812px) {
+
+    .menu-container {
+        margin: 0 !important;
+        p {
+            letter-spacing: unset !important;
+        }
+    }
+
     .logo-container {
+        margin: 0 !important;
         img {
             display: none;
         }
