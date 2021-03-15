@@ -25,6 +25,22 @@ export const navItemNew: SideNavItem = {
     state: null,
 }
 
+export const navItemArticles: SideNavItem = {
+    name: 'articles',
+    navUrl: '/articles',
+    iconName: '',
+    requireLogin: false,
+    state: null,
+}
+
+export const navItemProjects: SideNavItem = {
+    name: 'projects',
+    navUrl: '/projects',
+    iconName: '',
+    requireLogin: false,
+    state: null,
+}
+
 export const navListDefault: SideNavList = {
     navItems: [navItemHome, navItemNew],
 }

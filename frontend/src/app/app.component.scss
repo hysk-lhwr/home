@@ -1,3 +1,5 @@
+@import "../assets/vars";
+
 #app-header {
 
     justify-content: space-between;
@@ -6,22 +8,60 @@
     overflow-y: hidden;
 
     height: 10em;
+    border-bottom: 1px solid $border-color;
 
-    .user-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+    .menu-container {
+        margin: 1rem 0 1rem 2.68%;
+        
+        .menu-lv1 {
+            p {
+                font-size: 26px;
+                font-weight: 100;
+    
+                margin: 0.1rem 0;
+                padding: 0 0.68rem;
+    
+                &:hover {
+                    font-size: 28px;
+                    border-bottom: 1px solid $border-color-light;
+                }
+            }
+        }
+    
+        .menu-lv2 {
+            height: 80%;
+            padding: 1rem 0;
+            overflow: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            
+            border-left: 1px solid $border-color-light;;
+        }
 
-        height: 100%;
-        margin-left: 2.68%;
+        .menu-lv2::-webkit-scrollbar {
+            display: none;
+        }
     }
 
     .logo-container {
         height: 100%;
         margin-right: 2.68%;
+
+        p, img {
+            padding: 0 1rem;
+        }
     
         img {
             height: 80%;
+            border-left: 1px solid $border-color-light;;
+        }
+    }
+}
+
+@media screen and (max-width: 812px) {
+    .logo-container {
+        img {
+            display: none;
         }
     }
 }

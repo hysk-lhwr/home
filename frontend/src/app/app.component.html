@@ -1,12 +1,29 @@
 <div id="app-container">
-  <header id="app-header" class="flex-row btm-liner">
-    <div class="user-container link sp-cnt" routerLink="">
-      <p *ngIf="user?.timeLoggedin" class="title sp-itm">{{user?.username}}</p>
+  <header id="app-header" class="flex-row">
+    <div class="menu-container flex-row flex-center">
+      <div class="menu-lv1 flex-column">
+        <p class="link">Articles</p>
+        <p class="link">Projects</p>
+      </div>
+      <div class="menu-lv2 flex-column">
+        <p class="label sp-itm">Programming</p>
+        <p class="label sp-itm">Food & Recipe</p>
+        <p class="label sp-itm">Data Science</p>
+        <p class="label sp-itm">Programming</p>
+        <p class="label sp-itm">Food & Recipe</p>
+        <p class="label sp-itm">Data Science</p>
+        <p class="label sp-itm">Programming</p>
+        <p class="label sp-itm">Food & Recipe</p>
+        <p class="label sp-itm">Data Science</p>
+        <p class="label sp-itm">Programming</p>
+        <p class="label sp-itm">Food & Recipe</p>
+        <p class="label sp-itm">Data Science</p>
+      </div>
     </div>
-    <app-new-article *ngIf="user?.timeLoggedin"></app-new-article>
-    <div class="logo-container sp-cnt">
+    <div class="logo-container flex-row flex-center" routerLink="">
+      <p *ngIf="user?.timeLoggedin" class="title link">{{user?.username}}</p>
       <img src="../assets/images/logo/logo.png" alt="logo"/>
-    </div>
+    </div>  
   </header>
   <main id="app-content" class="">
     <router-outlet></router-outlet>
