@@ -23,10 +23,10 @@ export class ConstantsService {
     private patternCodeBlock: RegExp = new RegExp(/\`{3}((.|\n)*?)\`{3}/g);
     private tagBold: TagPair = {s: '<span class=\'bold\'>', e: '</span>'};
     private tagCodeSnipet: TagPair = {s: '<span class=\'code-snipet\'>', e: '</span>'};
-    private tagH3: TagPair = {s: '</p><p class=\'h-lv3\'>', e: '</p><p>'};
-    private tagH2: TagPair = {s: '</p><p class=\'h-lv2\'>', e: '</p><p>'};
-    private tagH1: TagPair = {s: '</p><p class=\'h-lv1\'>', e: '</p><p>'};
-    private tagCodeBlock: TagPair = {s: '</p><p class=\'code-block\'>', e: '</p><p>'};
+    private tagH3: TagPair = {s: '</p><p class=\'h-lv3\'>', e: '</p><p class="text-body">'};
+    private tagH2: TagPair = {s: '</p><p class=\'h-lv2\'>', e: '</p><p class="text-body">'};
+    private tagH1: TagPair = {s: '</p><p class=\'h-lv1\'>', e: '</p><p class="text-body">'};
+    private tagCodeBlock: TagPair = {s: '</p><p class=\'code-block\'>', e: '</p><p class="text-body">'};
 
     public mkdownRenderPipeline: RegOp[] = [
         {pattern: this.patternBold, tags: this.tagBold},

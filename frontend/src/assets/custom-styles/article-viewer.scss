@@ -50,6 +50,12 @@ div.article-viewer {
         background-color: $color-background-highlight;
     }
 
+    p.text-body {
+        padding: $spacing-cnt 0;
+        white-space: initial;
+        word-break: break-word;
+    }
+
     span {
         margin: 0;
         padding: 0 $spacing-itm--sub;
