@@ -19,4 +19,8 @@
         <p class="date sp-itm-sub">{{fullContent?.createdDate}}</p>
     </div>
     <div #mkdField class="article-viewer sp-itm" [innerHtml]="renderedString"></div>
+    <div class="fullcontent-footer flex-row flex-center">
+        <div *ngIf="!user?.timeLoggedin" class="thumbs-up-icon"></div>
+        <div *ngIf="!user?.timeLoggedin" class="thumbs-down-icon"></div>
+    </div>
 </div>

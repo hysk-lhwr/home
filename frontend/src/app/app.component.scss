@@ -73,6 +73,39 @@
     }
 }
 
+#app-footer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    margin-top: $spacing-cpt;
+    padding: $spacing-cpt;
+
+    p {
+        font-weight: 100;
+        letter-spacing: .15em;
+        font-size: 12px;
+        color: #000;
+    }
+
+    p.list-head {
+        font-size: 15px;
+        color: #696969;
+        font-weight: 400;
+    }
+
+    .footer-links {
+        align-items: flex-end;
+        width: auto;
+    }
+
+    .footer-icons {
+        align-items: flex-start;
+        width: auto;
+    }
+}
+
 @media screen and (max-width: 812px) {
 
     .menu-container {
