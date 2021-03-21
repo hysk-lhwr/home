@@ -19,8 +19,16 @@
         <p class="date sp-itm-sub">{{fullContent?.createdDate}}</p>
     </div>
     <div #mkdField class="article-viewer sp-itm" [innerHtml]="renderedString"></div>
-    <div class="fullcontent-footer flex-row flex-center">
-        <div *ngIf="!user?.timeLoggedin" class="thumbs-up-icon"></div>
-        <div *ngIf="!user?.timeLoggedin" class="thumbs-down-icon"></div>
+    <div class="fullcontent-footer flex-row flex-center sp-itm">
+        <div class="thumbs-up-icon sp-itm" on-mouseenter="hoverIcon('thumbup', 'enabled')" on-mouseleave="hoverEnds('thumbup', 'regular')" (click)="setFeedback(true)">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="30px" [attr.fill]="iconColor?.thumbup">
+                <path [attr.d]="iconPath?.thumbup"></path>
+            </svg>
+        </div>
+        <div class="thumbs-down-icon sp-itm" on-mouseenter="hoverIcon('thumbdown', 'delete')" on-mouseleave="hoverEnds('thumbdown', 'regular')" (click)="setFeedback(false)">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="30px" [attr.fill]="iconColor?.thumbdown">
+                <path [attr.d]="iconPath?.thumbdown"></path>
+            </svg>
+        </div>
     </div>
 </div>
