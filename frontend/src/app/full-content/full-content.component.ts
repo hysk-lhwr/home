@@ -38,6 +38,8 @@ export class FullContentComponent implements OnInit, OnDestroy {
     edit: this.constants.iconColor.regular,
     thumbup: this.constants.iconColor.regular,
     thumbdown: this.constants.iconColor.regular,
+    eye: this.constants.iconColor.highlight,
+    heart: this.constants.iconColor.delete,
   };
   articlesLink: LinkedList;
   navList: SideNavList;

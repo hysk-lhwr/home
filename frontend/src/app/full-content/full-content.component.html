@@ -15,8 +15,16 @@
         </div>
     </div>
     <div class="sp-itm flex-row">
-        <p class="date sp-itm-sub">Created At: </p>
-        <p class="date sp-itm-sub">{{fullContent?.createdDate}}</p>
+        <p class="date sp-itm-sub">Date Written: </p>
+        <p class="date sp-itm-sub">{{fullContent?.createdDate.substring(0,10)}}</p>
+        <svg xmlns="http://www.w3.org/2000/svg" height="14px" viewBox="0 0 24 24" [attr.fill]="iconColor?.eye">
+            <path [attr.d]="iconPath?.eye"></path>
+        </svg>
+        <p class="date sp-itm-sub">{{fullContent?.views}}</p>
+        <svg xmlns="http://www.w3.org/2000/svg" height="14px" viewBox="0 0 24 24" [attr.fill]="iconColor?.heart">
+            <path [attr.d]="iconPath?.heart"></path>
+        </svg>
+        <p class="date sp-itm-sub">{{fullContent?.likes}}</p>
     </div>
     <div #mkdField class="article-viewer sp-itm" [innerHtml]="renderedString"></div>
     <div class="fullcontent-footer flex-row flex-center sp-itm">
