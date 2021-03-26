@@ -55,8 +55,7 @@
         justify-content: center;
 
         position: absolute;
-        top: 0;
-        right: 0;
+        right: 0.68rem;
 
         font-size: 30px;
         color: $smoky-white;
@@ -70,16 +69,14 @@
 
         cursor: pointer;
     }
-
-    .search-component {
-        width: 100px;
-        height: 100px;
-        background-color: aqua;
-    }
 }
 
 .show-search {
     opacity: 1;
+}
+
+app-search {
+    width: 100%;
 }
 
 @media screen and (max-width: 812px) {
@@ -105,5 +102,12 @@
     svg {
         margin: 0 $spacing-itm;
         padding: 0 $spacing-itm;
+    }
+
+    .search-container {
+        position: absolute;
+        top: 31px;
+        left: 0;
+        width: 100%; 
     }
 }

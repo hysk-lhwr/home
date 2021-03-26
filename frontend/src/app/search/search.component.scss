@@ -1,0 +1,43 @@
+@import "../../assets/vars";
+
+input, label {
+    font-family: 'Roboto', sans-serif;
+    font-size: $font-size-regular;
+    font-weight: $font-weight-light;
+    letter-spacing: $spacing-letter;
+    line-height: $line-height-regular;
+    color: $color-text-regular;
+
+    width: -webkit-fill-available;
+    border: none;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+input {
+    height: 30px;
+    padding: 0.23rem 0.68rem;
+    border: 1px solid rgb(208, 207, 207);
+    border-radius: 3px;
+}
+
+label {
+    visibility: visible;
+    display: flex;
+    justify-content: flex-end;
+}
+
+input:placeholder-shown + label {
+    visibility: hidden;
+}
+
+@media screen and (max-width: 812px) {
+    input {
+        border: none;
+        border-bottom: 1px solid rgb(208, 207, 207);
+
+        padding: 0 2.46rem;
+    }
+}
