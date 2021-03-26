@@ -19,14 +19,16 @@ input, label {
 input {
     height: 30px;
     padding: 0.23rem 0.68rem;
-    border: 1px solid rgb(208, 207, 207);
+    border: 1px solid $subtle-red;
     border-radius: 3px;
+    background: #7fffd4e3;
+
+    box-shadow: 0 0 15px 5px #7fffd46e;
 }
 
 label {
+    display: none;
     visibility: visible;
-    display: flex;
-    justify-content: flex-end;
 }
 
 input:placeholder-shown + label {
@@ -37,7 +39,26 @@ input:placeholder-shown + label {
     input {
         border: none;
         border-bottom: 1px solid rgb(208, 207, 207);
-
         padding: 0 2.46rem;
+
+        box-shadow: none;
+        background: rgba($color: $solid-white, $alpha: 0.8);
     }
+
+    .enter-button {
+        display: inline;
+        z-index: 1;
+        position: absolute;
+        right: 1.36rem;
+        bottom: 3px;
+
+        font-size: 30px;
+        color: $smoky-white;
+        font-family: cursive;
+        font-weight: bold;
+        width: fit-content;
+        height: 31px;
+        color: $subtle-green;
+    }
+
 }

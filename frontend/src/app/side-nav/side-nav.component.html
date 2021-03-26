@@ -38,5 +38,5 @@
 </div>
 <div class="search-container" [ngClass]="{'show-search': showSearch}">
     <div class="close-button" (click)="showSearch=false">+</div>
-    <app-search></app-search>
+    <app-search [showSearch]="showSearch" (closeSearch)="showSearch=!showSearch"></app-search>
 </div>
