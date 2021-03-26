@@ -1,4 +1,4 @@
-<div id="app-container">
+<div id="app-container" (scroll)="onScroll()">
   <header id="app-header" class="flex-row">
     <div class="menu-container flex-row flex-center">
       <div class="menu-lv1 flex-column">
@@ -39,7 +39,12 @@
       </div>  
     </div>
     <div class="sp-itm">
-      <p>© Hysk Lhwr | 2021. All rights reserved.</p>
+      <p>© 2021 | Hysk Lhwr . All rights reserved.</p>
     </div>
   </footer>
+  <div class="scroll-to-top" id="scrollToTopBtn" #scrollToTopBtn (click)="toTop()">
+    <svg xmlns="http://www.w3.org/2000/svg" height="5vw" viewBox="0 0 24 24" fill="white">
+      <path d='M12 7.27l4.28 10.43-3.47-1.53-.81-.36-.81.36-3.47 1.53L12 7.27M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z'></path>
+    </svg>
+  </div>
 </div>

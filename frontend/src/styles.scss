@@ -4,6 +4,8 @@
 
 body {
     margin: 0;
+    scroll-behavior: smooth;
+    font-family: 'Roboto', sans-serif;
 
     div, p, a, img {
         &:focus {
@@ -16,7 +18,6 @@ body {
         margin: 0;
         padding: 0;
     
-        font-family: 'Roboto', sans-serif;
         font-size: $font-size-regular;
         font-weight: $font-weight-light;
         letter-spacing: $spacing-letter;

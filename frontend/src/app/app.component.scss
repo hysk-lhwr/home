@@ -122,3 +122,29 @@
         }
     }
 }
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 3vh;
+    right: 3vw;
+    padding-bottom: 0.18vh;
+
+    height: 5vw;
+    width: 5vw;
+    border: 3px solid gray;
+    border-radius: 50%;
+    background: gray;
+  
+    opacity: 0;
+    transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.showBtn {
+    opacity: 0.6;
+    
+    &:hover {
+        opacity: 1;
+        border-color: $morning-blue;
+        background: $night-blue;
+    }
+}
