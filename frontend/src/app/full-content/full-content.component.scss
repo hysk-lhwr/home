@@ -13,6 +13,45 @@
 
         justify-content: space-between;
         align-items: center;
+        flex-wrap: nowrap;
     }
 
+    textarea, label {
+        font-family: 'Roboto', sans-serif;
+        font-size: $font-size-regular;
+        font-weight: $font-weight-light;
+        letter-spacing: $spacing-letter;
+        line-height: $line-height-regular;
+        color: $color-text-regular;
+    
+        width: -webkit-fill-available;
+        border: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    textarea {
+        height: 100px;
+        padding: 0.23rem 0.68rem;
+        border: 1px solid rgb(208, 207, 207);
+        margin-top: 0px;
+        
+        resize: vertical;
+    }
+
+    label {
+        visibility: visible;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    textarea:placeholder-shown + label {
+        visibility: hidden;
+    }
+
+    .feedback-bar, .comment-container {
+        margin: 3rem 0;
+    }
 }

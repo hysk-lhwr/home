@@ -32,13 +32,18 @@ export class FullContentComponent implements OnInit, OnDestroy {
   fullContent: FullContent = null;
   renderedString: string = null;
   admin: Role = Role.ADMIN;
-  iconPath = this.constants.iconPath;
-  iconColor: {} = {
+  iconPath: Keyable;
+  iconColor: Keyable = {
     delete: this.constants.iconColor.regular,
     edit: this.constants.iconColor.regular,
+    thumbup: this.constants.iconColor.regular,
+    thumbdown: this.constants.iconColor.regular,
+    eye: this.constants.iconColor.highlight,
+    heart: this.constants.iconColor.delete,
   };
   articlesLink: LinkedList;
   navList: SideNavList;
+  feedback: boolean;
 
   constructor(
     private router: Router, 
@@ -133,6 +138,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.iconPath = this.constants.iconPath;
   }
 
   ngOnDestroy() {
@@ -150,11 +156,29 @@ export class FullContentComponent implements OnInit, OnDestroy {
   }
 
   hoverIcon(key: string, col: string) {
+    if (this.feedback !== undefined && (key === 'thumbup' || key === 'thumbdown')) {
+      return;
+    }
     this.iconColor[key] = this.constants.iconColor[col];
   }
 
   hoverEnds(key: string, col: string) {
+    if (this.feedback !== undefined && (key === 'thumbup' || key === 'thumbdown')) {
+      return;
+    }
     this.iconColor[key] = this.constants.iconColor[col];
+  }
+
+  setFeedback(val: boolean): void {
+    this.feedback = val;
+
+    if (this.feedback) {
+      this.iconColor['thumbup'] = this.constants.iconColor.enabled;
+      this.iconColor['thumbdown'] = this.constants.iconColor.regular;
+    } else {
+      this.iconColor['thumbup'] = this.constants.iconColor.regular;
+      this.iconColor['thumbdown'] = this.constants.iconColor.delete;
+    }
   }
 
   private updateNav(): void {

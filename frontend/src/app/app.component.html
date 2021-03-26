@@ -1,15 +1,50 @@
-<div id="app-container">
-  <header id="app-header" class="flex-row btm-liner">
-    <div class="user-container link sp-cnt" routerLink="">
-      <p *ngIf="user?.timeLoggedin" class="title sp-itm">{{user?.username}}</p>
+<div id="app-container" (scroll)="onScroll()">
+  <header id="app-header" class="flex-row">
+    <div class="menu-container flex-row flex-center">
+      <div class="menu-lv1 flex-column">
+        <p class="link">Articles</p>
+        <p class="link">Projects</p>
+      </div>
+      <div class="menu-lv2 flex-column">
+        <p class="label sp-itm">Programming</p>
+        <p class="label sp-itm">Food & Recipe</p>
+        <p class="label sp-itm">Data Science</p>
+        <p class="label sp-itm">Programming Programming</p>
+        <p class="label sp-itm">Food & Recipe</p>
+        <p class="label sp-itm">Data Science</p>
+        <p class="label sp-itm">Programming</p>
+      </div>
     </div>
-    <app-new-article *ngIf="user?.timeLoggedin"></app-new-article>
-    <div class="logo-container sp-cnt">
+    <div class="logo-container flex-row flex-center" routerLink="">
+      <p *ngIf="user?.timeLoggedin" class="title link">{{user?.username}}</p>
       <img src="../assets/images/logo/logo.png" alt="logo"/>
-    </div>
+    </div>  
   </header>
   <main id="app-content" class="">
     <router-outlet></router-outlet>
   </main>
-  <footer id="app-footer"></footer>
+  <footer id="app-footer">
+    <div class="flex-row flex-center">
+      <div class="footer-links flex-column flex-center sp-cnt">
+        <p class="label sp-itm list-head">Documents</p>
+        <p class="label sp-itm link">About</p>
+        <p class="label sp-itm link">Planning</p>
+        <p class="label sp-itm link">Collaborate</p>
+      </div>
+      <div class="footer-icons flex-column flex-center sp-cnt">
+        <p class="label sp-itm list-head">Connect</p>
+        <p class="label sp-itm link">GitHub</p>
+        <p class="label sp-itm link">LinkedIn</p>
+        <p class="label sp-itm link">YouTube</p>
+      </div>  
+    </div>
+    <div class="sp-itm">
+      <p>© 2021 | Hysk Lhwr . All rights reserved.</p>
+    </div>
+  </footer>
+  <div class="scroll-to-top" id="scrollToTopBtn" #scrollToTopBtn (click)="toTop()">
+    <svg xmlns="http://www.w3.org/2000/svg" height="5vw" viewBox="0 0 24 24" fill="white">
+      <path d='M12 7.27l4.28 10.43-3.47-1.53-.81-.36-.81.36-3.47 1.53L12 7.27M12 2L4.5 20.29l.71.71L12 18l6.79 3 .71-.71L12 2z'></path>
+    </svg>
+  </div>
 </div>
