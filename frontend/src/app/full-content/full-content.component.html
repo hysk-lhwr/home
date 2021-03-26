@@ -1,4 +1,4 @@
-<div *ngIf="!!fullContent" class="full-content-container btm-liner-light">
+<div *ngIf="!!fullContent" class="full-content-container">
     <div class="title-row flex-row sp-itm">
         <p class="title">{{fullContent?.title}}</p>
         <div class="icon-container flex-row">
@@ -26,7 +26,7 @@
         <p class="date sp-itm-sub">{{fullContent?.likes}}</p>
     </div>
     <div #mkdField class="article-viewer sp-itm" [innerHtml]="renderedString"></div>
-    <div class="fullcontent-footer flex-row flex-center sp-itm">
+    <div class="feedback-bar flex-row flex-center sp-itm">
         <div class="thumbs-up-icon sp-itm" on-mouseenter="hoverIcon('thumbup', 'enabled')" on-mouseleave="hoverEnds('thumbup', 'regular')" (click)="setFeedback(true)">
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="30px" [attr.fill]="iconColor?.thumbup">
                 <path [attr.d]="iconPath?.thumbup"></path>
@@ -37,5 +37,12 @@
                 <path [attr.d]="iconPath?.thumbdown"></path>
             </svg>
         </div>
+    </div>
+    <div class="comment-container">
+        <div class="comment-input sp-itm">
+            <textarea type="text" id="comment" placeholder="leave a comment"></textarea>
+            <label for="comment" class="sp-itm">Comment</label>
+        </div>
+        <div class="comments"></div>
     </div>
 </div>
