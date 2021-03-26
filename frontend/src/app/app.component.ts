@@ -7,7 +7,7 @@ import { UserService } from './service/user.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'hysk-homepage';
   user: User;
   @ViewChild('scrollToTopBtn', {static: false}) scrollToTopBtn: ElementRef;
@@ -20,10 +20,7 @@ export class AppComponent implements OnInit {
     )
   }
 
-  ngOnInit() {
-  }
-
-  @HostListener('window:scroll', ['$event'])
+  @HostListener('window:scroll', [])
   onScroll(): void {
     const verticalOffset = window.pageYOffset 
     || document.documentElement.scrollTop 

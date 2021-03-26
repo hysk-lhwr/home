@@ -32,8 +32,8 @@ export class FullContentComponent implements OnInit, OnDestroy {
   fullContent: FullContent = null;
   renderedString: string = null;
   admin: Role = Role.ADMIN;
-  iconPath = this.constants.iconPath;
-  iconColor: {} = {
+  iconPath: Keyable;
+  iconColor: Keyable = {
     delete: this.constants.iconColor.regular,
     edit: this.constants.iconColor.regular,
     thumbup: this.constants.iconColor.regular,
@@ -138,6 +138,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.iconPath = this.constants.iconPath;
   }
 
   ngOnDestroy() {
