@@ -1,26 +1,29 @@
 <div id="app-container" (scroll)="onScroll()">
   <header id="app-header" class="flex-row">
-    <div class="menu-container flex-row flex-center">
-      <div class="menu-lv1 flex-column">
-        <p class="link">Articles</p>
-        <p class="link">Projects</p>
+    <div class="menu-container flex-center">
+      <div class="menu-lv1 articles">
+        <p class="link" routerLink="/articles">Articles</p>
+        <div class="menu-lv2">
+          <p class="label sp-itm" [routerLink]="['/articles']" [queryParams]="{category: 'Technology'}">Technology</p>
+          <p class="label sp-itm" [routerLink]="['/articles']" [queryParams]="{category: 'Life'}">Life</p>
+          <p class="label sp-itm" [routerLink]="['/articles']" [queryParams]="{category: 'Uncategorized'}">Other</p>
+        </div>
       </div>
-      <div class="menu-lv2 flex-column">
-        <p class="label sp-itm">Programming</p>
-        <p class="label sp-itm">Food & Recipe</p>
-        <p class="label sp-itm">Data Science</p>
-        <p class="label sp-itm">Programming Programming</p>
-        <p class="label sp-itm">Food & Recipe</p>
-        <p class="label sp-itm">Data Science</p>
-        <p class="label sp-itm">Programming</p>
+      <div class="menu-lv1 projects">
+        <p class="link" routerLink="/projects">Projects</p>
+        <div class="menu-lv2">
+          <p class="label sp-itm" [routerLink]="['/projects']" [queryParams]="{category: 'Technology'}">Technology</p>
+          <p class="label sp-itm" [routerLink]="['/projects']" [queryParams]="{category: 'Life'}">Life</p>
+          <p class="label sp-itm" [routerLink]="['/projects']" [queryParams]="{category: 'Uncategorized'}">Other</p>
+        </div>
       </div>
     </div>
     <div class="logo-container flex-row flex-center" routerLink="">
-      <p *ngIf="user?.timeLoggedin" class="title link">{{user?.username}}</p>
+      <p class="title link">hysk</p>
       <img src="../assets/images/logo/logo.png" alt="logo"/>
     </div>  
   </header>
-  <main id="app-content" class="">
+  <main id="app-content">
     <router-outlet></router-outlet>
   </main>
   <footer id="app-footer">
