@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
-import { ActivationEnd, NavigationEnd, NavigationStart, Router } from '@angular/router';
+import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
 import { FullContent } from '../models/full-content';
@@ -137,6 +137,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
         if (e instanceof NavigationStart) {
           const currentUrl = navigation.extractedUrl.toString();
           if (!currentUrl.startsWith('/article/')) {
+            this.navListService.resetList();
             this.destroyRouterSub$.next(true);
           }
         }
