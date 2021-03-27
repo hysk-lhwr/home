@@ -11,6 +11,7 @@ import { ArticlesLinkService } from '../service/articles-link.service';
 import { ConstantsService } from '../service/constants.service';
 import { DeleteArticleService } from '../service/delete-article.service';
 import { FullContentService } from '../service/full-content.service';
+import { IpService } from '../service/ip-service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
 import { NavListService } from '../service/nav-list.service';
 import { UserService } from '../service/user.service';
@@ -44,6 +45,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
   articlesLink: LinkedList;
   navList: SideNavList;
   feedback: boolean;
+  clientIp: string;
 
   constructor(
     private router: Router, 
@@ -53,11 +55,16 @@ export class FullContentComponent implements OnInit, OnDestroy {
     private constants: ConstantsService, 
     private deleteService: DeleteArticleService,
     private navListService: NavListService,
-    private articlesLinkService: ArticlesLinkService) {
+    private articlesLinkService: ArticlesLinkService,
+    private ipService: IpService ) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$),
-    ).subscribe(u => this.user=u);
+    ).subscribe(u => this.user = u);
+
+    this.ipService.getClientIp().pipe(
+      takeUntil(this.destroy$),
+    ).subscribe(resp => this.clientIp = resp.ip);
 
     this.articlesLinkService.articlesLink$.pipe(
       takeUntil(this.destroy$),
@@ -179,6 +186,9 @@ export class FullContentComponent implements OnInit, OnDestroy {
       this.iconColor['thumbup'] = this.constants.iconColor.regular;
       this.iconColor['thumbdown'] = this.constants.iconColor.delete;
     }
+
+    console.log(this.clientIp);
+    console.log(this.feedback);
   }
 
   private updateNav(): void {

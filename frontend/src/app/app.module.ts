@@ -17,6 +17,7 @@ import { NewArticleComponent } from './new-article/new-article.component';
 import { ArticleEditorComponent } from './article-editor/article-editor.component';
 import { SearchComponent } from './search/search.component';
 import { FilterComponent } from './filter/filter.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FilterComponent } from './filter/filter.component';
     ArticleEditorComponent,
     SearchComponent,
     FilterComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,
