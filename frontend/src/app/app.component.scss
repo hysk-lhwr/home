@@ -7,7 +7,7 @@
     overflow-x: auto;
     overflow-y: hidden;
     height: 20em;
-    background: $crispy-grey;
+    background: $smoky-white;
     border-bottom: 1px solid $border-color;
 
     // background-image: url("../assets/images/photo/bkg1.jpg");
@@ -15,6 +15,9 @@
     // background-size: cover;
 
     .menu-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
         margin: 1rem 0 1rem 2%;
 
         .menu-lv1 {
@@ -28,7 +31,6 @@
                 letter-spacing: 0.23em;
     
                 &:hover {
-                    font-size: 28px;
                     border-bottom: 1px solid $border-color-light;
                 }
             }
@@ -38,18 +40,23 @@
             overflow-y: auto;
             justify-content: center;
             height: 80%;
-            padding: 1rem 0;
-            padding-left: 0.68rem;
             -ms-overflow-style: none;
             scrollbar-width: none;
             
             border-left: 1px solid $border-color-light;
 
             p {
+                margin: 0.2rem 0;
                 font-weight: 100;
                 letter-spacing: 0.15em;
                 font-size: 15px;
                 color: black;
+                cursor: pointer;
+
+                &:hover {
+                    font-size: 18px;
+                    border-bottom: 1px solid $border-color-light;
+                }
             }
         }
 

@@ -6,24 +6,37 @@
             <div *ngIf="nav.iconName">
                 <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="16px" height="16px" [attr.fill]="iconColor[nav.iconName]">
                     <path [attr.d]="iconPath[nav.name]"></path>
-                </svg>    
+                </svg>
             </div>
-        </div>    
+        </div>
     </div>
+
+    <div class="nav-item search-item link" on-mouseenter="hoverIcon('search')" on-mouseleave="hoverEnds('search')" (click)="showSearch=!showSearch">
+        <p class="label nav-item-text">search</p>
+        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="16px" height="16px" [attr.fill]="iconColor['search']">
+            <path [attr.d]="iconPath?.search"></path>
+        </svg>
+    </div>
+
     <div class="login-logout-wrapper">
         <div *ngIf="!!user?.timeLoggedin" class="nav-item login-logout link" routerLink="/" routerLinkActive="active" 
         (click)="logout()" on-mouseenter="hoverIcon('logout')" on-mouseleave="hoverEnds('logout')">
             <p class="label nav-item-text">logout</p>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="16px" height="16px" [attr.fill]="iconColor['logout']">
-                <path [attr.d]="iconPath.logout"></path>
+                <path [attr.d]="iconPath?.logout"></path>
             </svg>
         </div>
-        <div *ngIf="!user?.timeLoggedin" class="nav-item login-logout link" routerLink="/login" routerLinkActive="active" 
+        <!-- login icon removed from the page -->
+        <div *ngIf="false" class="nav-item login-logout link" routerLink="/login" routerLinkActive="active" 
         on-mouseenter="hoverIcon('login')" on-mouseleave="hoverEnds('login')">
             <p class="label nav-item-text">login</p>
             <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 0 24 24" width="16px" height="16px" [attr.fill]="iconColor['login']">
-                <path [attr.d]="iconPath.login"></path>
+                <path [attr.d]="iconPath?.login"></path>
             </svg>
         </div>    
     </div>
+</div>
+<div class="search-container" [ngClass]="{'show-search': showSearch}">
+    <div class="close-button" (click)="showSearch=false">+</div>
+    <app-search [showSearch]="showSearch" (closeSearch)="showSearch=!showSearch"></app-search>
 </div>

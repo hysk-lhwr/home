@@ -19,6 +19,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
   user: User;
   navList: SideNavList;
   iconPath = this.constants.iconPath;
+  showSearch: boolean = false;
   iconColor = {
     home: this.constants.iconColor.regular,
     login: this.constants.iconColor.regular,
@@ -26,6 +27,7 @@ export class SideNavComponent implements OnInit, OnDestroy {
     new: this.constants.iconColor.regular,
     next: this.constants.iconColor.regular,
     previous: this.constants.iconColor.regular,
+    search: this.constants.iconColor.regular,
   }
   private destroy$: Subject<boolean> = new Subject<boolean>();
 

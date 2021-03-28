@@ -2,7 +2,7 @@
     <p class="title sp-itm link" (click)="showFullArticle()">{{article?.articleTitle}}</p>
     <div class="flex-row sp-itm">
         <p class="label sp-itm-sub">keywords: </p>
-        <p *ngFor='let keyword of article.keywords' class="keyword label sp-itm-sub link">{{keyword + '; '}}</p>
+        <p *ngFor='let keyword of article.keywords' class="keyword label sp-itm-sub link" (click)="appendKeywordToRoute(keyword)">{{keyword + '; '}}</p>
     </div>
     <p class="content sp-itm" (click)="showFullArticle()">{{article?.preview + "\n"}}</p>
     <p class="label read-more link" (click)="showFullArticle()">>>    </p>

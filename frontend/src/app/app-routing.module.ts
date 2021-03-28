@@ -6,6 +6,7 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { NewArticleComponent } from './new-article/new-article.component';
 import { PreviewListComponent } from './preview-list/preview-list.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 
 const routes: Routes = [
@@ -27,6 +28,11 @@ const routes: Routes = [
         pathMatch: 'full',
       },
     ]
+  },
+  {
+    path: 'projects',
+    component: ProjectsComponent,
+
   },
   {
     path: 'login',

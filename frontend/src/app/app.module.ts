@@ -15,6 +15,10 @@ import { HttpClient, HttpClientModule, HttpHandler } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NewArticleComponent } from './new-article/new-article.component';
 import { ArticleEditorComponent } from './article-editor/article-editor.component';
+import { SearchComponent } from './search/search.component';
+import { FilterComponent } from './filter/filter.component';
+import { CommentsComponent } from './comments/comments.component';
+import { ProjectsComponent } from './projects/projects.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +33,10 @@ import { ArticleEditorComponent } from './article-editor/article-editor.componen
     SideBarComponent,
     NewArticleComponent,
     ArticleEditorComponent,
+    SearchComponent,
+    FilterComponent,
+    CommentsComponent,
+    ProjectsComponent,
   ],
   imports: [
     BrowserModule,

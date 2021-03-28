@@ -10,7 +10,7 @@ import { ShortenedArticle } from '../models/shortened-article';
 export class PreviewCardComponent implements OnInit {
   @Input('article') article: ShortenedArticle;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
   }
@@ -20,5 +20,17 @@ export class PreviewCardComponent implements OnInit {
       '/article/' + encodeURIComponent(this.article.articleTitle),
       {state: {articleId: this.article.articleId}}
     )
+  }
+
+  appendKeywordToRoute(event: string) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: {
+        keyword: event
+      },
+      // preserve the existing query params in the route
+      queryParamsHandling: 'merge',
+      skipLocationChange: false,
+    });
   }
 }

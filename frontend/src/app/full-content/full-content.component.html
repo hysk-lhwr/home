@@ -39,10 +39,6 @@
         </div>
     </div>
     <div class="comment-container">
-        <div class="comment-input sp-itm">
-            <textarea type="text" id="comment" placeholder="leave a comment"></textarea>
-            <label for="comment" class="sp-itm">Comment</label>
-        </div>
-        <div class="comments"></div>
+        <app-comments [targetId]="articleId"></app-comments>
     </div>
 </div>
