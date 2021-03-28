@@ -2,7 +2,6 @@ import { Component, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular
 import { ActivatedRoute, NavigationEnd, NavigationStart, Params, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
-import { ArticlesRequest } from '../models/articles-request';
 import { Node } from '../models/linkables/node';
 import { ShortenedArticle } from '../models/shortened-article';
 import { Status } from '../models/status';

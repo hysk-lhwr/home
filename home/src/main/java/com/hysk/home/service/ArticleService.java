@@ -11,21 +11,34 @@ import com.hysk.home.dto.NewArticleResponseDto;
 import com.hysk.home.dto.ShortenedArticle;
 import com.hysk.home.dto.UpdateArticleRequestDto;
 import com.hysk.home.model.Article;
+import com.hysk.home.model.Category;
 import com.hysk.home.model.Status;
 import com.hysk.home.repository.ArticleRepository;
 
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ArticleService {
     public final ArticleRepository articleRepository;
+    private final MongoTemplate template;
 
-    public ArticleService(final ArticleRepository articleRepository) {
+    public ArticleService(final ArticleRepository articleRepository, final MongoTemplate template) {
         this.articleRepository = articleRepository;
+        this.template = template;
     }
 
-    public GetAllArticlesResponseDto getAllArticles() {
-        var articles = this.articleRepository.findAll();
+    public GetAllArticlesResponseDto getAllArticles(String category, String keyword) {
+        Query query = new Query();
+        if (!category.isBlank()) {
+            query.addCriteria(Criteria.where("categories").in(category));
+        }
+        if (!keyword.isBlank()) {
+            query.addCriteria(Criteria.where("keywords").in(keyword));
+        }
+        var articles = this.template.find(query, Article.class);
         var shortenedArticles = articles.stream().map(
                 entity -> ShortenedArticle.builder()
                     .articleId(entity.articleId)
@@ -37,6 +50,10 @@ public class ArticleService {
             ).collect(Collectors.toList());
 
         return GetAllArticlesResponseDto.builder().articles(shortenedArticles).build();
+    }
+
+    public GetAllArticlesResponseDto searchText(String searchText) {
+        return null;
     }
 
     public GetArticleResponseDto getArticleById(String articleId) throws Exception {

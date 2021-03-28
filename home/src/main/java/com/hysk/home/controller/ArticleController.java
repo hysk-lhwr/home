@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,8 +29,10 @@ public class ArticleController {
     }
 
     @GetMapping(value = "articles")
-    public ResponseEntity<GetAllArticlesResponseDto> getAllArticles() {
-        var response = this.articleService.getAllArticles();
+    public ResponseEntity<GetAllArticlesResponseDto> getAllArticles(
+        @RequestParam(value = "category", required = false, defaultValue = "") String category, 
+        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
+        var response = this.articleService.getAllArticles(category, keyword);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
