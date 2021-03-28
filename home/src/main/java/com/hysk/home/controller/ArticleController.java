@@ -36,6 +36,13 @@ public class ArticleController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping(value = "searchArticles")
+    public ResponseEntity<GetAllArticlesResponseDto> searchArticles(
+        @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText) {
+        var response = this.articleService.searchText(searchText);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping(value = "articles/{articleId}")
     public ResponseEntity<GetArticleResponseDto> getArticleById(@PathVariable("articleId") String articleId) {
         try {

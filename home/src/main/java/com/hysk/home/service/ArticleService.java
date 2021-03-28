@@ -11,13 +11,14 @@ import com.hysk.home.dto.NewArticleResponseDto;
 import com.hysk.home.dto.ShortenedArticle;
 import com.hysk.home.dto.UpdateArticleRequestDto;
 import com.hysk.home.model.Article;
-import com.hysk.home.model.Category;
 import com.hysk.home.model.Status;
 import com.hysk.home.repository.ArticleRepository;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -53,8 +54,21 @@ public class ArticleService {
     }
 
     public GetAllArticlesResponseDto searchText(String searchText) {
-        return null;
-    }
+         TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(searchText);
+         var query = TextQuery.queryText(criteria).sortByScore();
+         var articles = template.find(query, Article.class);
+         var shortenedArticles = articles.stream().map(
+            entity -> ShortenedArticle.builder()
+                .articleId(entity.articleId)
+                .articleTitle(entity.title)
+                .preview(entity.preview)
+                .keywords(entity.keywords)
+                .status(entity.status)
+                .categories(entity.categories).build()
+        ).collect(Collectors.toList());
+
+    return GetAllArticlesResponseDto.builder().articles(shortenedArticles).build();
+}
 
     public GetArticleResponseDto getArticleById(String articleId) throws Exception {
         Article article = this.articleRepository.findById(articleId).orElseThrow(() -> new Exception());

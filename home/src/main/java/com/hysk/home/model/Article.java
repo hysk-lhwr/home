@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Collections;
 
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.TextIndexed;
 
 import lombok.Builder;
 import lombok.Data;
@@ -15,30 +16,48 @@ public class Article {
     @Id
     public String articleId;
     public String createdBy;
+
     @Builder.Default
     public Date createdDate = null;
+
     @Builder.Default
     public Date editedDate = null;
+
     @Builder.Default
     public Date expirationDate = null;
+
     @Builder.Default
+    @TextIndexed(weight=3)
     public String title = "new article";
+    
     @Builder.Default
+    @TextIndexed(weight=2)
     public List<String> keywords = Collections.emptyList();
+    
     @Builder.Default
+    @TextIndexed(weight=2)
     public List<String> categories = Collections.emptyList();
+
     @Builder.Default
+    @TextIndexed(weight=1)
     public String preview = "tbd";
+
     @Builder.Default
     public String contentRaw = "";
+
     @Builder.Default
     public String contentHtml = "";
+
     @Builder.Default
+    @TextIndexed(weight=2)
     public String contentMarkdown = "Start here!";
+
     @Builder.Default
     public Integer views = 0;
+
     @Builder.Default
     public Status status = Status.DRAFT;
+
     @Builder.Default
     public List<FeedBack> feedbacks = Collections.emptyList();
 
