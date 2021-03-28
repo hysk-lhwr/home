@@ -42,3 +42,8 @@
         <app-comments [targetId]="articleId"></app-comments>
     </div>
 </div>
+<div *ngIf="!fullContent" class="flex-row flex-center" style="height: 20vh;">
+    <p class="body" style="color: maroon;">
+        Invalid Article Id!
+    </p>
+</div>

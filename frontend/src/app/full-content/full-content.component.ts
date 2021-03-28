@@ -130,7 +130,7 @@ export class FullContentComponent implements OnInit, OnDestroy {
             this.updateNav();
   
           } else {
-            this.router.navigateByUrl('articles');
+            this.fullContent = null;
           }  
         }
 
