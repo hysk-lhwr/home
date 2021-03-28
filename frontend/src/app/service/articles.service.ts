@@ -10,12 +10,15 @@ import { Params } from "@angular/router";
 })
 export class ArticlesService {
 
-    private url = 'articles';
-
     constructor(private http: HttpClient, private environmentService: EnvironmentService) {}
 
     getArticles(params: Params): Observable<ArticlesResponse> {
-        const fullUrl = this.environmentService.backendUrl + this.url;
+        const fullUrl = this.environmentService.backendUrl + 'articles';
+        return this.http.get<ArticlesResponse>(fullUrl, {params: params});
+    }
+
+    searchArticles(params: Params): Observable<ArticlesResponse> {
+        const fullUrl = this.environmentService.backendUrl + 'searchArticles';
         return this.http.get<ArticlesResponse>(fullUrl, {params: params});
     }
 }

@@ -5,16 +5,18 @@ import java.util.List;
 import java.util.Collections;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.TextIndexed;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import lombok.Builder;
 import lombok.Data;
 
 @Data
 @Builder
+@Document
 public class Article {
     @Id
     public String articleId;
+
     public String createdBy;
 
     @Builder.Default
@@ -27,19 +29,15 @@ public class Article {
     public Date expirationDate = null;
 
     @Builder.Default
-    @TextIndexed(weight=3)
     public String title = "new article";
     
     @Builder.Default
-    @TextIndexed(weight=2)
     public List<String> keywords = Collections.emptyList();
     
     @Builder.Default
-    @TextIndexed(weight=2)
     public List<String> categories = Collections.emptyList();
 
     @Builder.Default
-    @TextIndexed(weight=1)
     public String preview = "tbd";
 
     @Builder.Default
@@ -49,7 +47,6 @@ public class Article {
     public String contentHtml = "";
 
     @Builder.Default
-    @TextIndexed(weight=2)
     public String contentMarkdown = "Start here!";
 
     @Builder.Default
