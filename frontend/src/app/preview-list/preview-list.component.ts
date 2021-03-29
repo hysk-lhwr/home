@@ -88,15 +88,12 @@ export class PreviewListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   private retrieveArticles(params: Params) {
-    console.log('retrieving articles');
     this.articlesService.getArticles(params).pipe(
       takeUntil(this.destroy$)
     ).subscribe((response) => this.handleArticlesResponse(response));
   }
 
   private searchArticles(params: Params) {
-    console.log('searching articles');
-    console.log(params);
     this.articlesService.searchArticles(params).pipe(
       takeUntil(this.destroy$)
     ).subscribe((response) => this.handleArticlesResponse(response));

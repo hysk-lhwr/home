@@ -62,9 +62,11 @@ export class FullContentComponent implements OnInit, OnDestroy {
       takeUntil(this.destroy$),
     ).subscribe(u => this.user = u);
 
-    this.ipService.getClientIp().pipe(
+    this.ipService.clientIp$.pipe(
       takeUntil(this.destroy$),
-    ).subscribe(resp => this.clientIp = resp.ip);
+    ).subscribe(
+      ip => this.clientIp = ip
+    )
 
     this.articlesLinkService.articlesLink$.pipe(
       takeUntil(this.destroy$),
@@ -87,7 +89,6 @@ export class FullContentComponent implements OnInit, OnDestroy {
         id => {
           return this.fullContentService.getFullContent(id).pipe(
             catchError(e => {
-              console.log('no such article');
               return of(
                 <FullContent>  {
                   createdDate: null,

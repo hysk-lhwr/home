@@ -1,5 +1,10 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
+import { CommentRequest } from '../models/comment-request';
+import { User } from '../models/user';
+import { CommentService } from '../service/comment.service';
 import { IpService } from '../service/ip-service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-comments',
@@ -11,12 +16,26 @@ export class CommentsComponent implements OnInit {
   @Input('targetId') targetId: string;
   newComment: string;
   clientIp: string;
+  user: User;
 
-  constructor(private ipService: IpService) { }
+  constructor(
+    private ipService: IpService, 
+    private commentService: CommentService, 
+    private userService: UserService
+    ) {
 
-  ngOnInit() {
-    this.ipService.getClientIp().subscribe(resp => this.clientIp = resp.ip);
-  }
+      this.userService.user$.subscribe(
+        user => this.user = user
+      );
+
+      this.ipService.clientIp$.subscribe(ip =>
+        {
+          this.clientIp = ip;
+        }
+      );
+   }
+
+  ngOnInit() {}
 
   @HostListener('keydown', ['$event'])
   onKeyDown(e: KeyboardEvent): void {
@@ -28,9 +47,17 @@ export class CommentsComponent implements OnInit {
 
   sendComment(): void {
     if (this.newComment && this.newComment.trim()) {
-      console.log(this.clientIp);
-      console.log(this.newComment);
+      const newCommentRequest: CommentRequest = {
+        targetId: this.targetId,
+        content: this.newComment,
+        commentedBy: this.user.username,
+        ipAddress: this.clientIp,
+      }
+      this.commentService.createComment(newCommentRequest).subscribe(
+        resp => {
+          this.newComment = null;
+        }
+      )
     }
-    this.newComment = null;
   }
 }
