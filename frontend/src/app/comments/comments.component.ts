@@ -1,4 +1,6 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { Params } from '@angular/router';
+import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { CommentRequest } from '../models/comment-request';
 import { User } from '../models/user';
@@ -11,11 +13,15 @@ import { UserService } from '../service/user.service';
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss']
 })
-export class CommentsComponent implements OnInit {
+export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
 
   @Input('targetId') targetId: string;
+  private getCommentsSubject: Subject<boolean> = new Subject();
+  private getComments$ = this.getCommentsSubject.asObservable();
+  private destroy$: Subject<boolean> = new Subject();
   newComment: string;
   clientIp: string;
+  comments: Comment[] = [];
   user: User;
 
   constructor(
@@ -24,18 +30,45 @@ export class CommentsComponent implements OnInit {
     private userService: UserService
     ) {
 
-      this.userService.user$.subscribe(
+      this.userService.user$.pipe(
+        takeUntil(this.destroy$),
+      ).subscribe(
         user => this.user = user
       );
 
-      this.ipService.clientIp$.subscribe(ip =>
+      this.ipService.clientIp$.pipe(
+        takeUntil(this.destroy$),
+      ).subscribe(ip =>
         {
           this.clientIp = ip;
         }
       );
+
+      this.getComments$.pipe(
+        takeUntil(this.destroy$),
+      ).subscribe(val => {
+        console.log('retriving comments');
+        const params: Params = {
+          targetId: this.targetId,
+        };
+        this.commentService.getComments(params).subscribe(resp => {
+          this.comments = Object.assign([], resp.comments);
+          console.log(this.comments);
+        });
+      })
    }
 
   ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ('targetId' in changes) {
+      this.getCommentsSubject.next(true);
+    }
+  }
+
+  ngOnDestroy() {
+    this.destroy$.next(true);
+  }
 
   @HostListener('keydown', ['$event'])
   onKeyDown(e: KeyboardEvent): void {
@@ -56,6 +89,7 @@ export class CommentsComponent implements OnInit {
       this.commentService.createComment(newCommentRequest).subscribe(
         resp => {
           this.newComment = null;
+          this.getCommentsSubject.next(true);
         }
       )
     }

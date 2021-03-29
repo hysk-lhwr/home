@@ -2,4 +2,8 @@
     <textarea type="text" id="comment" placeholder="leave a comment" [(ngModel)]="newComment" value="newComment"></textarea>
     <label for="comment" class="sp-itm" (click)="sendComment()">Comment</label>
 </div>
-<div class="comments"></div>
+<div class="comments">
+    <div *ngFor="let comment of comments" class="comment-card">
+        <p class="bo">{{comment.content}}</p>
+    </div>
+</div>
