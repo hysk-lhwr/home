@@ -3,7 +3,17 @@
     <label for="comment" class="sp-itm" (click)="sendComment()">Comment</label>
 </div>
 <div class="comments">
-    <div *ngFor="let comment of comments" class="comment-card">
-        <p class="bo">{{comment.content}}</p>
+    <p class="title comments-title">
+        Comments:
+    </p>
+    <div *ngIf="comments?.length == 0" class="flex-row flex-center sp-cnt">
+        <p>Be the first one to comment!</p>
+    </div>
+    <div *ngFor="let comment of comments" class="comment-card sp-itm">
+        <div class="flex-row comment-header">
+            <p class="label">{{comment.commentedBy}}</p>
+            <p class="date">{{comment.timeEdited.substring(0,10)}}</p>
+        </div>
+        <p class="comment-content">{{comment.content}}</p>
     </div>
 </div>

@@ -3,7 +3,6 @@ package com.hysk.home.controller;
 import com.hysk.home.dto.CommentDto;
 import com.hysk.home.dto.GetCommentsResponse;
 import com.hysk.home.dto.NewCommentResponseDto;
-import com.hysk.home.model.Comment;
 import com.hysk.home.service.CommentService;
 
 import org.springframework.http.HttpStatus;
