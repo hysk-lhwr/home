@@ -47,13 +47,11 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
       this.getComments$.pipe(
         takeUntil(this.destroy$),
       ).subscribe(val => {
-        console.log('retriving comments');
         const params: Params = {
           targetId: this.targetId,
         };
         this.commentService.getComments(params).subscribe(resp => {
           this.comments = Object.assign([], resp.comments);
-          console.log(this.comments);
         });
       })
    }
@@ -73,7 +71,6 @@ export class CommentsComponent implements OnInit, OnChanges, OnDestroy {
   @HostListener('keydown', ['$event'])
   onKeyDown(e: KeyboardEvent): void {
     if (e.shiftKey && e.key === 'Enter') {
-      console.log('sending comment');
       this.sendComment();
     }
   }

@@ -188,9 +188,6 @@ export class FullContentComponent implements OnInit, OnDestroy {
       this.iconColor['thumbup'] = this.constants.iconColor.regular;
       this.iconColor['thumbdown'] = this.constants.iconColor.delete;
     }
-
-    console.log(this.clientIp);
-    console.log(this.feedback);
   }
 
   private updateNav(): void {
