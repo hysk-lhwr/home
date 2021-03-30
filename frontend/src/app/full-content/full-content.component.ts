@@ -2,6 +2,9 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { ActionType } from '../models/error-handling/action-type';
+import { Error } from '../models/error-handling/error';
+import { ErrorType } from '../models/error-handling/error-type';
 import { FullContent } from '../models/full-content';
 import { LinkedList } from '../models/linkables/linked-list';
 import { Role } from '../models/role';
@@ -10,6 +13,7 @@ import { User } from '../models/user';
 import { ArticlesLinkService } from '../service/articles-link.service';
 import { ConstantsService } from '../service/constants.service';
 import { DeleteArticleService } from '../service/delete-article.service';
+import { ErrorNotificationService } from '../service/error-notification.service';
 import { FullContentService } from '../service/full-content.service';
 import { IpService } from '../service/ip-service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
@@ -56,7 +60,8 @@ export class FullContentComponent implements OnInit, OnDestroy {
     private deleteService: DeleteArticleService,
     private navListService: NavListService,
     private articlesLinkService: ArticlesLinkService,
-    private ipService: IpService ) {
+    private ipService: IpService,
+    private errorNotificationService: ErrorNotificationService) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$),
@@ -132,6 +137,13 @@ export class FullContentComponent implements OnInit, OnDestroy {
   
           } else {
             this.fullContent = null;
+            const error: Error = {
+              type: ErrorType.DEAD_END,
+              message: 'Illegal parameter',
+              action: ActionType.REDIRECT,
+              actionMessage: 'Redirecting...',
+            }
+            this.errorNotificationService.newError(error);
           }  
         }
 

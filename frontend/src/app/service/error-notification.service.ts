@@ -8,12 +8,7 @@ import { ErrorType } from "../models/error-handling/error-type";
     providedIn: 'root'
 })
 export class ErrorNotificationService {
-    private error: Error = {
-        type: ErrorType.NO_PERMISSION,
-        message: 'You do not have permission to this page',
-        action: ActionType.REDIRECT,
-        actionMessage: 'Redirecting',
-    };
+    private error: Error = null;
     private errorSubject: BehaviorSubject<Error> = new BehaviorSubject(this.error);
     error$ = this.errorSubject.asObservable();
 
