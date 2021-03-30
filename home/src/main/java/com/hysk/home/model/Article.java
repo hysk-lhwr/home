@@ -56,12 +56,5 @@ public class Article {
     public Status status = Status.DRAFT;
 
     @Builder.Default
-    public List<FeedBack> feedbacks = Collections.emptyList();
-
-    @Data
-    public class FeedBack {
-        String ip;
-        String id;
-        public Integer score;
-    }
+    public List<Feedback> feedbacks = Collections.emptyList();
   }

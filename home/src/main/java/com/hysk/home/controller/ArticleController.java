@@ -1,5 +1,6 @@
 package com.hysk.home.controller;
 
+import com.hysk.home.dto.BinaryFeedbackRequestDto;
 import com.hysk.home.dto.BinaryResponseDto;
 import com.hysk.home.dto.GetAllArticlesResponseDto;
 import com.hysk.home.dto.GetArticleResponseDto;
@@ -51,6 +52,19 @@ public class ArticleController {
             return ResponseEntity.status(HttpStatus.OK).body(response);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+    }
+
+    @PostMapping(value = "articles/{articleId}")
+    public ResponseEntity<BinaryResponseDto> feedbackForArticleWithId(
+        @PathVariable("articleId") String articleId, @RequestBody BinaryFeedbackRequestDto request) {
+        try {
+            this.articleService.addNewFeedback(articleId, request);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                BinaryResponseDto.builder().success(true).build());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                BinaryResponseDto.builder().success(false).build());
         }
     }
 

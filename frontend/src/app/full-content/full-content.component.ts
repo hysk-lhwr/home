@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { BinaryFeedbackRequest } from '../models/binary-feedback';
 import { ActionType } from '../models/error-handling/action-type';
 import { Error } from '../models/error-handling/error';
 import { ErrorType } from '../models/error-handling/error-type';
@@ -200,6 +201,25 @@ export class FullContentComponent implements OnInit, OnDestroy {
       this.iconColor['thumbup'] = this.constants.iconColor.regular;
       this.iconColor['thumbdown'] = this.constants.iconColor.delete;
     }
+
+    const fbRequest: BinaryFeedbackRequest = {
+      username: this.user.username,
+      ip: this.clientIp,
+      score: val? 1:-1,
+    }
+    this.fullContentService.addFeedback(this.articleId, fbRequest).subscribe(
+      resp => {
+        if (!resp.success) {
+          const error: Error = {
+            type: ErrorType.SERVER_ERROR,
+            message: 'failed to save feedback',
+            action: ActionType.IGNORE,
+            actionMessage: 'ignoring the error',
+          }
+          this.errorNotificationService.newError(error);
+        }
+      }
+    );
   }
 
   private updateNav(): void {

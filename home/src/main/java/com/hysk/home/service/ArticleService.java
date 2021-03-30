@@ -2,8 +2,10 @@ package com.hysk.home.service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.hysk.home.dto.BinaryFeedbackRequestDto;
 import com.hysk.home.dto.GetAllArticlesResponseDto;
 import com.hysk.home.dto.GetArticleResponseDto;
 import com.hysk.home.dto.NewArticleRequestDto;
@@ -11,6 +13,7 @@ import com.hysk.home.dto.NewArticleResponseDto;
 import com.hysk.home.dto.ShortenedArticle;
 import com.hysk.home.dto.UpdateArticleRequestDto;
 import com.hysk.home.model.Article;
+import com.hysk.home.model.Feedback;
 import com.hysk.home.model.Status;
 import com.hysk.home.repository.ArticleRepository;
 
@@ -72,7 +75,9 @@ public class ArticleService {
 
     public GetArticleResponseDto getArticleById(String articleId) throws Exception {
         Article article = this.articleRepository.findById(articleId).orElseThrow(() -> new Exception());
-        var positiveFeedbacks = article.feedbacks.stream().filter(item -> item.score == 1).collect(Collectors.toList());
+        article.views += 1;
+        article = this.articleRepository.save(article);
+        var positiveFeedbacks = article.feedbacks.stream().filter(item -> item.getScore()== 1).collect(Collectors.toList());
         return GetArticleResponseDto.builder()
             .createdDate(article.createdDate)
             .editedDate(article.editedDate)
@@ -114,6 +119,25 @@ public class ArticleService {
         } else {
             throw new Exception("Unable to udpate article");
         }
+    }
+
+    public void addNewFeedback(String articleId, BinaryFeedbackRequestDto request) throws Exception {
+        Article articleToUpdate = this.articleRepository.findById(articleId).orElseThrow(() -> new Exception());
+        var flagWrapper = new Object() { boolean ipExists; };
+        var feedbacks = articleToUpdate.getFeedbacks().stream().map(feedback -> {
+            if (feedback.getIp().equals(request.getIp())) {
+                flagWrapper.ipExists = true;
+                feedback.setScore(request.getScore());
+            }
+            return feedback;
+        }).collect(Collectors.toList());
+        if (!flagWrapper.ipExists) {
+            feedbacks.add(
+                Feedback.builder().ip(request.getIp()).id(request.getUsername()).score(request.getScore())
+                .build());
+        };
+        articleToUpdate.setFeedbacks(feedbacks);
+        this.articleRepository.save(articleToUpdate);
     }
 
     public void deleteArticle(String articleId) throws Exception {
