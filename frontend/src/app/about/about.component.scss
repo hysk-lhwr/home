@@ -1,0 +1,16 @@
+.abt-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#about, #planning, #collaborate {
+    width: 50vw;
+    min-width: 350px;
+    height: 500px;
+    margin: 0 auto;
+
+    display: flex;
+
+}

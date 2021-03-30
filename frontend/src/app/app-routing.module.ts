@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AboutComponent } from './about/about.component';
 import { ArticleEditorComponent } from './article-editor/article-editor.component';
-import { ErrorNotificationComponent } from './error-notification/error-notification.component';
 import { FullContentComponent } from './full-content/full-content.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
@@ -48,8 +48,8 @@ const routes: Routes = [
     component: NewArticleComponent,
   },
   {
-    path: 'error',
-    component: ErrorNotificationComponent,
+    path: '**',
+    component: AboutComponent,
   }
 ];
 

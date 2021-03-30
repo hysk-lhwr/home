@@ -20,6 +20,7 @@ import { FilterComponent } from './filter/filter.component';
 import { CommentsComponent } from './comments/comments.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ErrorNotificationComponent } from './error-notification/error-notification.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { ErrorNotificationComponent } from './error-notification/error-notificat
     CommentsComponent,
     ProjectsComponent,
     ErrorNotificationComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
