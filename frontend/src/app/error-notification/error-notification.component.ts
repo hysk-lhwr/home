@@ -22,7 +22,6 @@ export class ErrorNotificationComponent implements OnInit, OnDestroy, AfterViewI
     ).subscribe(
       err => {
         this.error = err;
-        console.log(this.error);
       }
     )
   }
@@ -67,7 +66,7 @@ export class ErrorNotificationComponent implements OnInit, OnDestroy, AfterViewI
         }
       }
 
-      this.errorService.newError(null);
+      this.errorService.resolveError();
     }
   }
 

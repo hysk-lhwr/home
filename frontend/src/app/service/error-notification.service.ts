@@ -1,8 +1,6 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject, Subject } from "rxjs";
-import { ActionType } from "../models/error-handling/action-type";
+import { BehaviorSubject } from "rxjs";
 import { Error } from "../models/error-handling/error";
-import { ErrorType } from "../models/error-handling/error-type";
 
 @Injectable({
     providedIn: 'root'
@@ -14,6 +12,11 @@ export class ErrorNotificationService {
 
     public newError(err: Error): void {
         this.error = err;
+        this.broadcastError();
+    }
+
+    public resolveError(): void {
+        this.error = null;
         this.broadcastError();
     }
 
