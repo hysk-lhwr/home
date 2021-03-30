@@ -1,0 +1,16 @@
+.error-window {
+    height: 240px;
+    width: 30vw;
+    min-width: 350px;
+
+    position: relative;
+    top: 2rem;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid;
+}
