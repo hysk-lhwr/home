@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { BinaryResponse } from "../models/binary-response";
 import { UpdateArticleRequest } from "../models/update-article-request";
 import { EnvironmentService } from "./environment.service";
 
@@ -14,8 +15,8 @@ export class UpdateArticleService {
         private environmentService: EnvironmentService
     ) {}
 
-    updateArticle(request: UpdateArticleRequest):Observable<string> {
+    updateArticle(request: UpdateArticleRequest):Observable<BinaryResponse> {
         const fullUrl = this.environmentService.backendUrl + 'articles/edit';
-        return this.http.post<string>(fullUrl, request);
+        return this.http.post<BinaryResponse>(fullUrl, request);
     }
 }

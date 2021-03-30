@@ -1,5 +1,6 @@
 package com.hysk.home.controller;
 
+import com.hysk.home.dto.BinaryResponseDto;
 import com.hysk.home.dto.GetAllArticlesResponseDto;
 import com.hysk.home.dto.GetArticleResponseDto;
 import com.hysk.home.dto.NewArticleRequestDto;
@@ -54,12 +55,12 @@ public class ArticleController {
     }
 
     @DeleteMapping(value = "articles/{articleId}")
-    public ResponseEntity<Boolean> deleteArticleById(@PathVariable("articleId") String articleId) {
+    public ResponseEntity<BinaryResponseDto> deleteArticleById(@PathVariable("articleId") String articleId) {
         try {
             this.articleService.deleteArticle(articleId);
-            return ResponseEntity.status(HttpStatus.OK).body(true);
+            return ResponseEntity.status(HttpStatus.OK).body(BinaryResponseDto.builder().success(true).build());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BinaryResponseDto.builder().success(false).build());
         }
     }
 
@@ -74,12 +75,12 @@ public class ArticleController {
     }
 
     @PostMapping(value = "articles/edit")
-    public ResponseEntity<String> editArticle(@RequestBody UpdateArticleRequestDto requestDto) {
+    public ResponseEntity<BinaryResponseDto> editArticle(@RequestBody UpdateArticleRequestDto requestDto) {
         try {
             this.articleService.editArticle(requestDto);
-            return ResponseEntity.status(HttpStatus.OK).body("edit successful");
+            return ResponseEntity.status(HttpStatus.OK).body(BinaryResponseDto.builder().success(true).build());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("edit failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BinaryResponseDto.builder().success(false).build());
         }
     }
 }

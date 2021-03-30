@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
+import { BinaryResponse } from "../models/binary-response";
 import { EnvironmentService } from "./environment.service";
 
 @Injectable({
@@ -13,8 +14,8 @@ export class DeleteArticleService {
         private environmentService: EnvironmentService
     ) {}
 
-    deleteArticle(articleId: string):Observable<boolean> {
+    deleteArticle(articleId: string):Observable<BinaryResponse> {
         const fullUrl = this.environmentService.backendUrl + 'articles/' + articleId;
-        return this.http.delete<boolean>(fullUrl);
+        return this.http.delete<BinaryResponse>(fullUrl);
     }
 }

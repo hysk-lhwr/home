@@ -38,7 +38,7 @@ public class Article {
     public List<String> categories = Collections.emptyList();
 
     @Builder.Default
-    public String preview = "tbd";
+    public String preview = "no preview";
 
     @Builder.Default
     public String contentRaw = "";
@@ -47,7 +47,7 @@ public class Article {
     public String contentHtml = "";
 
     @Builder.Default
-    public String contentMarkdown = "Start here!";
+    public String contentMarkdown = "Start writing!";
 
     @Builder.Default
     public Integer views = 0;
