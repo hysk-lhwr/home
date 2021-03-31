@@ -142,17 +142,17 @@ public class ArticleService {
 
     public void deleteArticle(String articleId) throws Exception {
         Article articleToDelete = this.articleRepository.findById(articleId).orElseThrow(() -> new Exception());
-        var calendar = Calendar.getInstance();
-        calendar.add(Calendar.DATE, 90);
-        var futureDate = calendar.getTime();
-        articleToDelete.setExpirationDate(futureDate);
+        // var calendar = Calendar.getInstance();
+        // calendar.add(Calendar.DATE, 90);
+        // var futureDate = calendar.getTime();
+        articleToDelete.setDeletedDate(new Date());
         articleToDelete.setStatus(Status.DELETED);
         this.articleRepository.save(articleToDelete);
     }
 
     public void recoverArticle(String articleId) throws Exception {
         Article articleToRecover = this.articleRepository.findById(articleId).orElseThrow(() -> new Exception());
-        articleToRecover.setExpirationDate(null);
+        articleToRecover.setDeletedDate(null);
         articleToRecover.setStatus(Status.DRAFT);
         this.articleRepository.save(articleToRecover);
     }

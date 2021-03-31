@@ -26,7 +26,7 @@ public class Article {
     public Date editedDate = null;
 
     @Builder.Default
-    public Date expirationDate = null;
+    public Date deletedDate = null;
 
     @Builder.Default
     public String title = "new article";
