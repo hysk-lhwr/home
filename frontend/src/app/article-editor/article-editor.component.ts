@@ -2,12 +2,16 @@ import { AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild, Vie
 import { ActivationEnd, NavigationEnd, Router } from '@angular/router';
 import { fromEvent, of, Subject, Subscription } from 'rxjs';
 import { catchError, debounceTime, distinctUntilChanged, filter, map, switchMap, takeUntil } from 'rxjs/operators';
+import { ActionType } from '../models/error-handling/action-type';
+import { Error } from '../models/error-handling/error';
+import { ErrorType } from '../models/error-handling/error-type';
 import { FullContent } from '../models/full-content';
 import { Status } from '../models/status';
 import { UpdateArticleRequest, updateArticleRequestDefault } from '../models/update-article-request';
 import { User } from '../models/user';
 import { ConstantsService } from '../service/constants.service';
 import { DeleteArticleService } from '../service/delete-article.service';
+import { ErrorNotificationService } from '../service/error-notification.service';
 import { FullContentService } from '../service/full-content.service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
 import { UpdateArticleService } from '../service/update-article.service';
@@ -50,6 +54,7 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
   iconColor = this.constants.iconColor;
   iconPath = this.constants.iconPath;
   currentStatus: Status = Status.DRAFT;
+  canEdit: boolean = false;
   emptyContent: FullContent = {
     createdDate: null,
     editedDate: null,
@@ -72,11 +77,20 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     private userService: UserService, 
     private updateArticleService: UpdateArticleService, 
     private constants: ConstantsService, 
-    private deleteService: DeleteArticleService) {
+    private deleteService: DeleteArticleService,
+    private errorService: ErrorNotificationService) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$)
-    ).subscribe(u => this.user = u)
+    ).subscribe(u => {
+      this.user = u;
+      if(!!this.user.timeLoggedin) {
+        this.canEdit = true;
+      } else {
+        this.canEdit = false;
+        this.permissionError();
+      }
+    })
 
     this.request$.pipe(
       takeUntil(this.destroy$)
@@ -114,11 +128,14 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     ).subscribe(
       e => {
         const navigation = this.router.getCurrentNavigation();
-        this.articleId = navigation.extras.state ? navigation.extras.state.articleId : null;
-        if(this.articleId) {
-          this.newArticleIdSubject.next(this.articleId);
-        } else {
-          this.router.navigateByUrl('articles');
+        if (navigation.extractedUrl.toString() === '/editor') {
+          this.articleId = navigation.extras.state ? navigation.extras.state.articleId : null;
+          if(this.articleId) {
+            this.canEdit = true;
+            this.newArticleIdSubject.next(this.articleId);
+          } else {
+            this.urlError();
+          }
         }
         this.destroyRouterSub$.next(true);
       }
@@ -181,6 +198,28 @@ export class ArticleEditorComponent implements OnInit, OnDestroy, AfterViewInit 
     if (this.previewMode) {
       this.renderedString = this.markdownRendererService.renderString(this.contentMarkdown);
     }
+  }
+
+  private permissionError(): void {
+    this.canEdit = false;
+    const error: Error = {
+      type: ErrorType.NO_PERMISSION,
+      message: 'You do not have permission to this page.',
+      action: ActionType.REDIRECT,
+      actionMessage: 'Redirecting...',
+    }
+    this.errorService.newError(error);
+  }
+
+  private urlError(): void {
+    this.canEdit = false;
+    const error: Error = {
+      type: ErrorType.DEAD_END,
+      message: 'Attempting to edit without target',
+      action: ActionType.REDIRECT,
+      actionMessage: 'Redirecting...',
+    }
+    this.errorService.newError(error);
   }
 
   private exitPage() {

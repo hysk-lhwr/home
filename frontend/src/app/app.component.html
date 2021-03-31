@@ -25,14 +25,15 @@
   </header>
   <main id="app-content">
     <router-outlet></router-outlet>
+    <app-error-notification></app-error-notification>
   </main>
   <footer id="app-footer">
     <div class="flex-row flex-center">
       <div class="footer-links flex-column flex-center sp-cnt">
         <p class="label sp-itm list-head">Documents</p>
-        <p class="label sp-itm link">About</p>
-        <p class="label sp-itm link">Planning</p>
-        <p class="label sp-itm link">Collaborate</p>
+        <p class="label sp-itm link" [routerLink]="['/about']" fragment="about">About</p>
+        <p class="label sp-itm link" [routerLink]="['/about']" fragment="planning">Planning</p>
+        <p class="label sp-itm link" [routerLink]="['/about']" fragment="collaborate">Collaborate</p>
       </div>
       <div class="footer-icons flex-column flex-center sp-cnt">
         <p class="label sp-itm list-head">Connect</p>

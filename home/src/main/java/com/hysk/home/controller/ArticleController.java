@@ -1,5 +1,7 @@
 package com.hysk.home.controller;
 
+import com.hysk.home.dto.BinaryFeedbackRequestDto;
+import com.hysk.home.dto.BinaryResponseDto;
 import com.hysk.home.dto.GetAllArticlesResponseDto;
 import com.hysk.home.dto.GetArticleResponseDto;
 import com.hysk.home.dto.NewArticleRequestDto;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -28,8 +31,17 @@ public class ArticleController {
     }
 
     @GetMapping(value = "articles")
-    public ResponseEntity<GetAllArticlesResponseDto> getAllArticles() {
-        var response = this.articleService.getAllArticles();
+    public ResponseEntity<GetAllArticlesResponseDto> getAllArticles(
+        @RequestParam(value = "category", required = false, defaultValue = "") String category, 
+        @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
+        var response = this.articleService.getAllArticles(category, keyword);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping(value = "searchArticles")
+    public ResponseEntity<GetAllArticlesResponseDto> searchArticles(
+        @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText) {
+        var response = this.articleService.searchText(searchText);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -43,13 +55,26 @@ public class ArticleController {
         }
     }
 
+    @PostMapping(value = "articles/{articleId}")
+    public ResponseEntity<BinaryResponseDto> feedbackForArticleWithId(
+        @PathVariable("articleId") String articleId, @RequestBody BinaryFeedbackRequestDto request) {
+        try {
+            this.articleService.addNewFeedback(articleId, request);
+            return ResponseEntity.status(HttpStatus.OK).body(
+                BinaryResponseDto.builder().success(true).build());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(
+                BinaryResponseDto.builder().success(false).build());
+        }
+    }
+
     @DeleteMapping(value = "articles/{articleId}")
-    public ResponseEntity<Boolean> deleteArticleById(@PathVariable("articleId") String articleId) {
+    public ResponseEntity<BinaryResponseDto> deleteArticleById(@PathVariable("articleId") String articleId) {
         try {
             this.articleService.deleteArticle(articleId);
-            return ResponseEntity.status(HttpStatus.OK).body(true);
+            return ResponseEntity.status(HttpStatus.OK).body(BinaryResponseDto.builder().success(true).build());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(false);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BinaryResponseDto.builder().success(false).build());
         }
     }
 
@@ -64,12 +89,12 @@ public class ArticleController {
     }
 
     @PostMapping(value = "articles/edit")
-    public ResponseEntity<String> editArticle(@RequestBody UpdateArticleRequestDto requestDto) {
+    public ResponseEntity<BinaryResponseDto> editArticle(@RequestBody UpdateArticleRequestDto requestDto) {
         try {
             this.articleService.editArticle(requestDto);
-            return ResponseEntity.status(HttpStatus.OK).body("edit successful");
+            return ResponseEntity.status(HttpStatus.OK).body(BinaryResponseDto.builder().success(true).build());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("edit failed");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(BinaryResponseDto.builder().success(false).build());
         }
     }
 }

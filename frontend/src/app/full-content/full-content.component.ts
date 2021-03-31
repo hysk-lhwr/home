@@ -2,6 +2,10 @@ import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { NavigationEnd, NavigationStart, Router } from '@angular/router';
 import { of, Subject } from 'rxjs';
 import { catchError, filter, switchMap, takeUntil } from 'rxjs/operators';
+import { BinaryFeedbackRequest } from '../models/binary-feedback';
+import { ActionType } from '../models/error-handling/action-type';
+import { Error } from '../models/error-handling/error';
+import { ErrorType } from '../models/error-handling/error-type';
 import { FullContent } from '../models/full-content';
 import { LinkedList } from '../models/linkables/linked-list';
 import { Role } from '../models/role';
@@ -10,6 +14,7 @@ import { User } from '../models/user';
 import { ArticlesLinkService } from '../service/articles-link.service';
 import { ConstantsService } from '../service/constants.service';
 import { DeleteArticleService } from '../service/delete-article.service';
+import { ErrorNotificationService } from '../service/error-notification.service';
 import { FullContentService } from '../service/full-content.service';
 import { IpService } from '../service/ip-service';
 import { MarkdownRendererService } from '../service/markdown-renderer.service';
@@ -56,15 +61,18 @@ export class FullContentComponent implements OnInit, OnDestroy {
     private deleteService: DeleteArticleService,
     private navListService: NavListService,
     private articlesLinkService: ArticlesLinkService,
-    private ipService: IpService ) {
+    private ipService: IpService,
+    private errorNotificationService: ErrorNotificationService) {
 
     this.userService.user$.pipe(
       takeUntil(this.destroy$),
     ).subscribe(u => this.user = u);
 
-    this.ipService.getClientIp().pipe(
+    this.ipService.clientIp$.pipe(
       takeUntil(this.destroy$),
-    ).subscribe(resp => this.clientIp = resp.ip);
+    ).subscribe(
+      ip => this.clientIp = ip
+    )
 
     this.articlesLinkService.articlesLink$.pipe(
       takeUntil(this.destroy$),
@@ -87,7 +95,6 @@ export class FullContentComponent implements OnInit, OnDestroy {
         id => {
           return this.fullContentService.getFullContent(id).pipe(
             catchError(e => {
-              console.log('no such article');
               return of(
                 <FullContent>  {
                   createdDate: null,
@@ -130,7 +137,14 @@ export class FullContentComponent implements OnInit, OnDestroy {
             this.updateNav();
   
           } else {
-            this.router.navigateByUrl('articles');
+            this.fullContent = null;
+            const error: Error = {
+              type: ErrorType.DEAD_END,
+              message: 'Illegal parameter',
+              action: ActionType.REDIRECT,
+              actionMessage: 'Redirecting...',
+            }
+            this.errorNotificationService.newError(error);
           }  
         }
 
@@ -188,8 +202,24 @@ export class FullContentComponent implements OnInit, OnDestroy {
       this.iconColor['thumbdown'] = this.constants.iconColor.delete;
     }
 
-    console.log(this.clientIp);
-    console.log(this.feedback);
+    const fbRequest: BinaryFeedbackRequest = {
+      username: this.user.username,
+      ip: this.clientIp,
+      score: val? 1:-1,
+    }
+    this.fullContentService.addFeedback(this.articleId, fbRequest).subscribe(
+      resp => {
+        if (!resp.success) {
+          const error: Error = {
+            type: ErrorType.SERVER_ERROR,
+            message: 'failed to save feedback',
+            action: ActionType.IGNORE,
+            actionMessage: 'ignoring the error',
+          }
+          this.errorNotificationService.newError(error);
+        }
+      }
+    );
   }
 
   private updateNav(): void {

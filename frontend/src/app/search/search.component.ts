@@ -1,4 +1,5 @@
 import { Component, Input, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { SearchStringService } from '../service/search-string.service';
 
 @Component({
   selector: 'app-search',
@@ -10,7 +11,7 @@ export class SearchComponent implements OnInit {
   @Output() closeSearch = new EventEmitter<boolean>();
   inputValue: string;
 
-  constructor() { }
+  constructor(private searchStringService: SearchStringService) { }
 
   ngOnInit() {
   }
@@ -36,8 +37,9 @@ export class SearchComponent implements OnInit {
   }
 
   enter(): void {
-    console.log(this.inputValue);
-    // in not blank, perform search
+    if(this.inputValue && this.inputValue.trim()) {
+      this.searchStringService.updateSearchString(this.inputValue);
+    }
     this.close();
   }
 

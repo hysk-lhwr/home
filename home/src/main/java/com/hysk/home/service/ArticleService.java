@@ -2,8 +2,10 @@ package com.hysk.home.service;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
+import com.hysk.home.dto.BinaryFeedbackRequestDto;
 import com.hysk.home.dto.GetAllArticlesResponseDto;
 import com.hysk.home.dto.GetArticleResponseDto;
 import com.hysk.home.dto.NewArticleRequestDto;
@@ -11,21 +13,36 @@ import com.hysk.home.dto.NewArticleResponseDto;
 import com.hysk.home.dto.ShortenedArticle;
 import com.hysk.home.dto.UpdateArticleRequestDto;
 import com.hysk.home.model.Article;
+import com.hysk.home.model.Feedback;
 import com.hysk.home.model.Status;
 import com.hysk.home.repository.ArticleRepository;
 
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.data.mongodb.core.query.TextCriteria;
+import org.springframework.data.mongodb.core.query.TextQuery;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ArticleService {
     public final ArticleRepository articleRepository;
+    private final MongoTemplate template;
 
-    public ArticleService(final ArticleRepository articleRepository) {
+    public ArticleService(final ArticleRepository articleRepository, final MongoTemplate template) {
         this.articleRepository = articleRepository;
+        this.template = template;
     }
 
-    public GetAllArticlesResponseDto getAllArticles() {
-        var articles = this.articleRepository.findAll();
+    public GetAllArticlesResponseDto getAllArticles(String category, String keyword) {
+        Query query = new Query();
+        if (!category.isBlank()) {
+            query.addCriteria(Criteria.where("categories").in(category));
+        }
+        if (!keyword.isBlank()) {
+            query.addCriteria(Criteria.where("keywords").in(keyword));
+        }
+        var articles = this.template.find(query, Article.class);
         var shortenedArticles = articles.stream().map(
                 entity -> ShortenedArticle.builder()
                     .articleId(entity.articleId)
@@ -39,9 +56,28 @@ public class ArticleService {
         return GetAllArticlesResponseDto.builder().articles(shortenedArticles).build();
     }
 
+    public GetAllArticlesResponseDto searchText(String searchText) {
+         TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(searchText);
+         var query = TextQuery.queryText(criteria).sortByScore();
+         var articles = template.find(query, Article.class);
+         var shortenedArticles = articles.stream().map(
+            entity -> ShortenedArticle.builder()
+                .articleId(entity.articleId)
+                .articleTitle(entity.title)
+                .preview(entity.preview)
+                .keywords(entity.keywords)
+                .status(entity.status)
+                .categories(entity.categories).build()
+        ).collect(Collectors.toList());
+
+    return GetAllArticlesResponseDto.builder().articles(shortenedArticles).build();
+}
+
     public GetArticleResponseDto getArticleById(String articleId) throws Exception {
         Article article = this.articleRepository.findById(articleId).orElseThrow(() -> new Exception());
-        var positiveFeedbacks = article.feedbacks.stream().filter(item -> item.score == 1).collect(Collectors.toList());
+        article.views += 1;
+        article = this.articleRepository.save(article);
+        var positiveFeedbacks = article.feedbacks.stream().filter(item -> item.getScore()== 1).collect(Collectors.toList());
         return GetArticleResponseDto.builder()
             .createdDate(article.createdDate)
             .editedDate(article.editedDate)
@@ -83,6 +119,25 @@ public class ArticleService {
         } else {
             throw new Exception("Unable to udpate article");
         }
+    }
+
+    public void addNewFeedback(String articleId, BinaryFeedbackRequestDto request) throws Exception {
+        Article articleToUpdate = this.articleRepository.findById(articleId).orElseThrow(() -> new Exception());
+        var flagWrapper = new Object() { boolean ipExists; };
+        var feedbacks = articleToUpdate.getFeedbacks().stream().map(feedback -> {
+            if (feedback.getIp().equals(request.getIp())) {
+                flagWrapper.ipExists = true;
+                feedback.setScore(request.getScore());
+            }
+            return feedback;
+        }).collect(Collectors.toList());
+        if (!flagWrapper.ipExists) {
+            feedbacks.add(
+                Feedback.builder().ip(request.getIp()).id(request.getUsername()).score(request.getScore())
+                .build());
+        };
+        articleToUpdate.setFeedbacks(feedbacks);
+        this.articleRepository.save(articleToUpdate);
     }
 
     public void deleteArticle(String articleId) throws Exception {

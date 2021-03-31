@@ -1,37 +1,63 @@
 @import "../../assets/custom-styles/article-viewer.scss";
 
 
-textarea, label {
-    font-family: 'Roboto', sans-serif;
-    font-size: $font-size-regular;
-    font-weight: $font-weight-light;
-    letter-spacing: $spacing-letter;
-    line-height: $line-height-regular;
-    color: $color-text-regular;
-
-    width: -webkit-fill-available;
-    border: none;
-
-    &:focus {
-        outline: none;
-    }
-}
-
-textarea {
-    height: 100px;
-    padding: 0.23rem 0.68rem;
-    border: 1px solid rgb(208, 207, 207);
-    margin-top: 0px;
+.comment-input {
+    textarea, label {
+        font-family: 'Roboto', sans-serif;
+        font-size: $font-size-regular;
+        font-weight: $font-weight-light;
+        letter-spacing: $spacing-letter;
+        line-height: $line-height-regular;
+        color: $color-text-regular;
     
-    resize: vertical;
+        width: -webkit-fill-available;
+        border: none;
+    
+        &:focus {
+            outline: none;
+        }
+    }
+    
+    textarea {
+        height: 100px;
+        padding: 0.23rem 0.68rem;
+        border: 1px solid rgb(208, 207, 207);
+        margin-top: 0px;
+        
+        resize: vertical;
+    }
+    
+    label {
+        visibility: visible;
+        display: flex;
+        justify-content: flex-end;
+    }
+    
+    textarea:placeholder-shown + label {
+        visibility: hidden;
+    }    
 }
 
-label {
-    visibility: visible;
+.comments {
     display: flex;
-    justify-content: flex-end;
-}
+    flex-direction: column;
+    gap: 0.68rem;
+    margin: 3rem 0;
 
-textarea:placeholder-shown + label {
-    visibility: hidden;
+    .comment-title {
+        margin-left: 0;
+        padding-left: 0;
+        margin-top: 2rem;
+    }
+
+    .comment-header {
+        justify-content: space-between;
+        padding-bottom: 0.23rem;
+        border-bottom: 1px solid rgb(208, 207, 207);
+    }
+
+    .comment-content {
+        margin: 0.68rem 0;
+        padding: 0.23rem;
+    }
 }

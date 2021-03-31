@@ -1,4 +1,4 @@
-<div class="editor-container sp-cpt">
+<div [ngClass]="{'can-edit': canEdit}" class="editor-container sp-cpt">
     <div class="article-editor">
         <div class="editable -title sp-itm btm-liner-light">
             <input type="text" id="title" [(ngModel)]="title" value="title" placeholder="Add Title">

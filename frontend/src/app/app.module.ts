@@ -19,6 +19,8 @@ import { SearchComponent } from './search/search.component';
 import { FilterComponent } from './filter/filter.component';
 import { CommentsComponent } from './comments/comments.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { ErrorNotificationComponent } from './error-notification/error-notification.component';
+import { AboutComponent } from './about/about.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,8 @@ import { ProjectsComponent } from './projects/projects.component';
     FilterComponent,
     CommentsComponent,
     ProjectsComponent,
+    ErrorNotificationComponent,
+    AboutComponent,
   ],
   imports: [
     BrowserModule,
