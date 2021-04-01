@@ -95,27 +95,26 @@ export class FullContentComponent implements OnInit, OnDestroy {
         id => {
           return this.fullContentService.getFullContent(id).pipe(
             catchError(e => {
-              return of(
-                <FullContent>  {
-                  createdDate: null,
-                  editedDate: null,
-                  contentRaw: '',
-                  contentMarkdown: '',
-                  contentHtml: '',
-                  views: null,
-                  likes: null,
-                  categories: null,
-                  keywords: null,
-                }
-              )
+              return of(null);
             })
           )
         }
       )
     ).subscribe(
       response => {
-        this.fullContent = response;
-        this.renderedString = this.markdownRendererService.renderString(this.fullContent.contentMarkdown);
+        if(!!response) {
+          this.fullContent = response;
+          this.renderedString = this.markdownRendererService.renderString(this.fullContent.contentMarkdown);  
+        } else {
+          const error: Error = {
+            type: ErrorType.DEAD_END,
+            message: 'Requested content does not exist',
+            action: ActionType.REDIRECT,
+            actionMessage: 'Redirecting...',
+          };
+          this.fullContent = null;
+          this.errorNotificationService.newError(error);
+        }
       }
     );
 
