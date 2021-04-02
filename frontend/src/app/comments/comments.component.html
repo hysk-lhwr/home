@@ -12,7 +12,7 @@
     <div *ngFor="let comment of comments" class="comment-card sp-itm">
         <div class="flex-row comment-header">
             <p class="label">{{comment.commentedBy}}</p>
-            <p class="date">{{comment.timeEdited.substring(0,10)}}</p>
+            <p class="date">{{comment.timeEdited.toString().substring(0,10)}}</p>
         </div>
         <p class="comment-content">{{comment.content}}</p>
     </div>
