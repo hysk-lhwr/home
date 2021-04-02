@@ -15,15 +15,18 @@ public class HomeApplication {
 	@Value("${app.security.cors.allowedOrigins}")
 	private String[] allowedOrigins;
 
+	@Value("${app.security.cors.allowedMethods}")
+	private String[] allowedMethods;
+
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer(){
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry
-				.addMapping("/**")
+				.addMapping("/api/v1/**")
 				.allowedOrigins(allowedOrigins)
-				.allowedMethods("HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS");
+				.allowedMethods(allowedMethods);
 			}
 		};
 	}

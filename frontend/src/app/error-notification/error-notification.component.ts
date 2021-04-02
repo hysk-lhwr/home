@@ -21,6 +21,7 @@ export class ErrorNotificationComponent implements OnInit, OnDestroy, AfterViewI
       takeUntil(this.destroy$),
     ).subscribe(
       err => {
+        this.countDown = 3;
         this.error = err;
       }
     )

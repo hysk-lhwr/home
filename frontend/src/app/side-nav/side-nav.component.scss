@@ -42,7 +42,7 @@
     width: 40vw;
     min-width: 400px;
 
-    opacity: 0;
+    visibility: hidden;
 
     display: flex;
     align-items: center;
@@ -73,7 +73,7 @@
 }
 
 .show-search {
-    opacity: 1;
+    visibility: visible;
 }
 
 app-search {
