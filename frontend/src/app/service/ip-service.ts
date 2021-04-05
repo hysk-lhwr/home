@@ -19,7 +19,7 @@ export class IpService {
     }
 
     private refreshClientIp(): void {
-        this.http.get<IpResp>('http://api.ipify.org/?format=json').subscribe(
+        this.http.get<IpResp>('https://api.ipify.org/?format=json').subscribe(
             resp => {
                 this.clientIp = resp.ip;
                 this.clientIpSub.next(this.clientIp);
