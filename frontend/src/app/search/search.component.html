@@ -1,4 +1,4 @@
 <div class="search-container">
-    <input type="text" id="search-bar" placeholder="Search the site. Press enter to complete." autocomplete="off" [(ngModel)]="inputValue" value="inputValue">
+    <input #searchBar type="text" id="search-bar" placeholder="Search articles in the site" autocomplete="off" [(ngModel)]="inputValue" value="inputValue">
     <label for="search-bar" class="enter-button" (click)="enter()">→</label>
 </div>
