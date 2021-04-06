@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start-local": "ng serve --configuration=local --disableHostCheck=true",
-    "start-proxy": "ng serve --configuration=proxy --disableHostCheck=true",
+    "start-proxy": "ng serve --configuration=proxy --watch=false --disableHostCheck=true",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
