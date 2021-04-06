@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start-local": "ng serve --configuration=local --disableHostCheck=true",
-    "start-proxy": "ng serve --configuration=proxy --disableHostCheck=true",
+    "start-local": "ng serve --port 4201 --configuration=local --disableHostCheck=true",
+    "start-proxy": "ng serve --port 4201 --configuration=proxy --disableHostCheck=true",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
