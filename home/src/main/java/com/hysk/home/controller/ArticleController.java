@@ -33,15 +33,17 @@ public class ArticleController {
     @GetMapping(value = "articles")
     public ResponseEntity<GetAllArticlesResponseDto> getAllArticles(
         @RequestParam(value = "category", required = false, defaultValue = "") String category, 
+        @RequestParam(value = "username", required = false, defaultValue = "") String username, 
         @RequestParam(value = "keyword", required = false, defaultValue = "") String keyword) {
-        var response = this.articleService.getAllArticles(category, keyword);
+        var response = this.articleService.getAllArticles(category, username, keyword);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping(value = "searchArticles")
     public ResponseEntity<GetAllArticlesResponseDto> searchArticles(
-        @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText) {
-        var response = this.articleService.searchText(searchText);
+        @RequestParam(value = "searchText", required = false, defaultValue = "") String searchText,
+        @RequestParam(value = "username", required = false, defaultValue = "") String username) {
+        var response = this.articleService.searchText(searchText, username);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 

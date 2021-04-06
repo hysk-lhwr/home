@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, HostListener, OnChanges, SimpleChange, SimpleChanges, ViewChild, ElementRef } from '@angular/core';
 import { SearchStringService } from '../service/search-string.service';
 
 @Component({
@@ -6,14 +6,25 @@ import { SearchStringService } from '../service/search-string.service';
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
-export class SearchComponent implements OnInit {
+export class SearchComponent implements OnInit, OnChanges {
   @Input('showSearch') showSearch: boolean;
   @Output() closeSearch = new EventEmitter<boolean>();
+  @ViewChild('searchBar', {static: false}) searchBar: ElementRef;
   inputValue: string;
 
   constructor(private searchStringService: SearchStringService) { }
 
   ngOnInit() {
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if ('showSearch' in changes) {
+      if (this.showSearch) {
+        setTimeout(() => {
+          this.searchBar.nativeElement.focus();
+        }, 200);
+      }
+    }
   }
 
   // @HostListener() only supports window, document, and body as global event targets, 
