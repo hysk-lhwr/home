@@ -34,13 +34,16 @@ public class ArticleService {
         this.template = template;
     }
 
-    public GetAllArticlesResponseDto getAllArticles(String category, String keyword) {
+    public GetAllArticlesResponseDto getAllArticles(String category, String username, String keyword) {
         Query query = new Query();
         if (!category.isBlank()) {
             query.addCriteria(Criteria.where("categories").in(category));
         }
         if (!keyword.isBlank()) {
             query.addCriteria(Criteria.where("keywords").in(keyword));
+        }
+        if (!username.isBlank()) {
+            query.addCriteria(Criteria.where("createdBy").is(username));
         }
         var articles = this.template.find(query, Article.class);
         var shortenedArticles = articles.stream().map(
@@ -56,9 +59,12 @@ public class ArticleService {
         return GetAllArticlesResponseDto.builder().articles(shortenedArticles).build();
     }
 
-    public GetAllArticlesResponseDto searchText(String searchText) {
+    public GetAllArticlesResponseDto searchText(String searchText, String username) {
          TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(searchText);
          var query = TextQuery.queryText(criteria).sortByScore();
+         if (!username.isBlank()) {
+            query.addCriteria(Criteria.where("createdBy").is(username));
+        }
          var articles = template.find(query, Article.class);
          var shortenedArticles = articles.stream().map(
             entity -> ShortenedArticle.builder()
