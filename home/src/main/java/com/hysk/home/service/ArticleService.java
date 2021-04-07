@@ -18,6 +18,7 @@ import com.hysk.home.model.Status;
 import com.hysk.home.repository.ArticleRepository;
 
 import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.query.Collation;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.TextCriteria;
@@ -45,6 +46,7 @@ public class ArticleService {
         if (!username.isBlank()) {
             query.addCriteria(Criteria.where("createdBy").is(username));
         }
+        query.collation(Collation.of("en").strength(Collation.ComparisonLevel.secondary()));
         var articles = this.template.find(query, Article.class);
         var shortenedArticles = articles.stream().map(
                 entity -> ShortenedArticle.builder()
@@ -62,6 +64,7 @@ public class ArticleService {
     public GetAllArticlesResponseDto searchText(String searchText, String username) {
          TextCriteria criteria = TextCriteria.forDefaultLanguage().matchingAny(searchText);
          var query = TextQuery.queryText(criteria).sortByScore();
+         query.collation(Collation.of("en").strength(Collation.ComparisonLevel.secondary()));
          if (!username.isBlank()) {
             query.addCriteria(Criteria.where("createdBy").is(username));
         }
