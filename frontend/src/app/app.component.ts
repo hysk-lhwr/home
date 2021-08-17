@@ -33,6 +33,10 @@ export class AppComponent {
     }
   }
 
+  navExternal(url: string): void {
+    window.open(url, "_blank");
+  }
+
   toTop(): void {
     window.scroll(0,0);
   }

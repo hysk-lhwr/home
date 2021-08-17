@@ -21,6 +21,7 @@ import { CommentsComponent } from './comments/comments.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ErrorNotificationComponent } from './error-notification/error-notification.component';
 import { AboutComponent } from './about/about.component';
+import { ResumeComponent } from './resume/resume.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { AboutComponent } from './about/about.component';
     ProjectsComponent,
     ErrorNotificationComponent,
     AboutComponent,
+    ResumeComponent,
   ],
   imports: [
     BrowserModule,

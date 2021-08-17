@@ -32,14 +32,12 @@
       <div class="footer-links flex-column flex-center sp-cnt">
         <p class="label sp-itm list-head">Documents</p>
         <p class="label sp-itm link" [routerLink]="['/about']" fragment="about">About</p>
-        <p class="label sp-itm link" [routerLink]="['/about']" fragment="planning">Planning</p>
-        <p class="label sp-itm link" [routerLink]="['/about']" fragment="collaborate">Collaborate</p>
+        <p class="label sp-itm link" [routerLink]="['/resume']">Resume</p>
       </div>
       <div class="footer-icons flex-column flex-center sp-cnt">
         <p class="label sp-itm list-head">Connect</p>
-        <p class="label sp-itm link">GitHub</p>
-        <p class="label sp-itm link">LinkedIn</p>
-        <p class="label sp-itm link">YouTube</p>
+        <p class="label sp-itm link" (click)="navExternal('https://github.com/hysk-lhwr')">GitHub</p>
+        <p class="label sp-itm link" (click)="navExternal('https://www.linkedin.com/in/jun-luo-940aaa9b')">LinkedIn</p>
       </div>  
     </div>
     <div class="sp-itm">

@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { NewArticleComponent } from './new-article/new-article.component';
 import { PreviewListComponent } from './preview-list/preview-list.component';
 import { ProjectsComponent } from './projects/projects.component';
+import { ResumeComponent } from './resume/resume.component';
 
 
 const routes: Routes = [
@@ -46,6 +47,10 @@ const routes: Routes = [
   {
     path: 'new',
     component: NewArticleComponent,
+  },
+  {
+    path: 'resume',
+    component: ResumeComponent,
   },
   {
     path: '**',

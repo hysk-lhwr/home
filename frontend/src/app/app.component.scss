@@ -104,11 +104,13 @@
     }
 
     .footer-links {
+        align-self: baseline;
         align-items: flex-end;
         width: auto;
     }
 
     .footer-icons {
+        align-self: baseline;
         align-items: flex-start;
         width: auto;
     }
